@@ -37,7 +37,7 @@ class CardsWidget extends StatelessWidget {
                 child: Text(
                   textHeading!,
                   style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 25,
                       color: secondPrimary,
                       fontWeight: FontWeight.bold),
                 ),
