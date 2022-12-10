@@ -10,32 +10,25 @@ class LargeChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
           color: kPrimaryColor,
           height: 600,
-          child: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              FractionallySizedBox(
-                alignment: Alignment.bottomRight,
-                widthFactor: .5,
-                child: Image.asset(
-                  'assets/images/hand.png',
-                ),
-              ),
-              FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: .5,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 50),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: [
                     const Text(
-                      "As the Value goes up,head starts to swivels, and spectics soften",
+                      "As the Value goes up,head starts to\nswivels, and spectics soften",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Montserrat-Regular",
                         color: Colors.white,
@@ -43,34 +36,94 @@ class LargeChild extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(18.0),
-                      child: Center(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            backgroundColor: Colors.white,
-                          ),
-                          onPressed: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: HeadingWidget(
-                              color: kPrimaryColor,
-                              fontsize: 16,
-                              textHeading: 'Learn more',
-                            ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          backgroundColor: Colors.white,
+                        ),
+                        onPressed: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: HeadingWidget(
+                            color: kPrimaryColor,
+                            fontsize: 16,
+                            textHeading: 'Learn more',
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
                   ],
+                ),
+              ),
+              Expanded(
+                child: Image.asset(
+                  'assets/images/hand.png',
+                  alignment: Alignment.bottomRight,
                 ),
               ),
             ],
           ),
+
+          // child: Column(
+          //   // fit: StackFit.expand,
+          //   children: <Widget>[
+
+          //     FractionallySizedBox(
+          //       alignment: Alignment.bottomRight,
+          //       // widthFactor: .6,
+          //       child: Image.asset(
+          //         'assets/images/hand.png',
+          //       ),
+          //     ),
+          //     FractionallySizedBox(
+          //       alignment: Alignment.centerLeft,
+          //       widthFactor: .5,
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: <Widget>[
+          //           const Text(
+          //             "As the Value goes up,head starts to swivels, and spectics soften",
+          //             textAlign: TextAlign.center,
+          //             style: TextStyle(
+          //               fontSize: 40,
+          //               fontWeight: FontWeight.bold,
+          //               fontFamily: "Montserrat-Regular",
+          //               color: Colors.white,
+          //             ),
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.all(18.0),
+          //             child: Center(
+          //               child: ElevatedButton(
+          //                 style: ElevatedButton.styleFrom(
+          //                   shape: RoundedRectangleBorder(
+          //                       borderRadius: BorderRadius.circular(20)),
+          //                   backgroundColor: Colors.white,
+          //                 ),
+          //                 onPressed: () {},
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.symmetric(
+          //                       horizontal: 20, vertical: 10),
+          //                   child: HeadingWidget(
+          //                     color: kPrimaryColor,
+          //                     fontsize: 16,
+          //                     textHeading: 'Learn more',
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //           const SizedBox(
+          //             height: 40,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ),
         // end of first screen
         //start of OurTeam section
@@ -146,7 +199,7 @@ class LargeChild extends StatelessWidget {
                       icontype: Icons.message,
                       textHeading: 'App consultancy',
                       discription:
-                          'We help you define\nthe best features for\nyour app',
+                          'We help you define\nthe best features for your app',
                     ),
                     CardsWidget(
                       icontype: Icons.category,
@@ -297,6 +350,7 @@ class SmallChild extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 600,
+            width: double.infinity,
             color: kPrimaryColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -314,11 +368,30 @@ class SmallChild extends StatelessWidget {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: HeadingWidget(
+                      color: kPrimaryColor,
+                      fontsize: 16,
+                      textHeading: 'Learn more',
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
                 Image.asset(
                   'assets/images/hand.png',
+                  alignment: Alignment.bottomRight,
+                  height: 400,
                 ),
               ],
             ),
@@ -360,8 +433,8 @@ class SmallChild extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
                           'assets/images/men.png',
-                          width: MediaQuery.of(context).size.width * 0.35,
-                          height: MediaQuery.of(context).size.height * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.30,
+                          height: MediaQuery.of(context).size.height * 0.3,
                         ),
                       ),
                       const SizedBox(
@@ -375,8 +448,8 @@ class SmallChild extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
                           'assets/images/men.png',
-                          width: MediaQuery.of(context).size.width * 0.35,
-                          height: MediaQuery.of(context).size.height * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.30,
+                          height: MediaQuery.of(context).size.height * 0.3,
                         ),
                       ),
                     ],
@@ -406,7 +479,7 @@ class SmallChild extends StatelessWidget {
                     icontype: Icons.message,
                     textHeading: 'App consultancy',
                     discription:
-                        'We help you define\nthe best features for\nyour app',
+                        'We help you define\nthe best features for your app',
                   ),
                   CardsWidget(
                     icontype: Icons.category,
