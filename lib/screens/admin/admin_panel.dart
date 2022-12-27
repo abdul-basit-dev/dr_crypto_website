@@ -13,7 +13,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:shimmer/shimmer.dart';
+
 import 'package:intl/intl.dart' as intl;
 
 class AdminPanel extends StatefulWidget {
@@ -498,6 +498,25 @@ class _AdminPanelState extends State<AdminPanel> {
                                   children: [
                                     Icon(Icons.arrow_drop_up_sharp,
                                         color: Colors.green[600]),
+                                    Text(
+                                      ((profit(
+                                                      _listCoin[0]
+                                                          ['current_price'],
+                                                      double.parse(
+                                                          userModel[index]
+                                                              .price2)) /
+                                                  _listCoin[0]
+                                                      ['current_price']) *
+                                              100)
+                                          .toStringAsFixed(2),
+                                      style: const TextStyle(
+                                          fontSize: 9, color: Colors.green),
+                                    ),
+                                    const Text(
+                                      " %",
+                                      style: TextStyle(
+                                          fontSize: 9, color: Colors.green),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -515,6 +534,25 @@ class _AdminPanelState extends State<AdminPanel> {
                                   children: [
                                     Icon(Icons.arrow_drop_down_sharp,
                                         color: Colors.red[600]),
+                                    Text(
+                                      ((loss(
+                                                      _listCoin[0]
+                                                          ['current_price'],
+                                                      double.parse(
+                                                          userModel[index]
+                                                              .price2)) /
+                                                  _listCoin[0]
+                                                      ['current_price']) *
+                                              100)
+                                          .toStringAsFixed(2),
+                                      style: const TextStyle(
+                                          fontSize: 9, color: Colors.red),
+                                    ),
+                                    const Text(
+                                      " %",
+                                      style: TextStyle(
+                                          fontSize: 9, color: Colors.red),
+                                    ),
                                   ],
                                 ),
                               ],
