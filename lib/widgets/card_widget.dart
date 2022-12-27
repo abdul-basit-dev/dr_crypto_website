@@ -30,7 +30,7 @@ class CardsWidget extends StatelessWidget {
               Icon(
                 icontype!,
                 size: 55,
-                color: secondPrimary,
+                color: kSecondColor,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 18.0, bottom: 18),
@@ -38,13 +38,13 @@ class CardsWidget extends StatelessWidget {
                   textHeading!,
                   style: const TextStyle(
                       fontSize: 25,
-                      color: secondPrimary,
+                      color: kSecondColor,
                       fontWeight: FontWeight.bold),
                 ),
               ),
               Text(
                 discription!,
-                style: const TextStyle(fontSize: 20, color: secondPrimary),
+                style: const TextStyle(fontSize: 20, color: kSecondColor),
               ),
             ],
           ),

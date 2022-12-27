@@ -132,7 +132,7 @@ class LargeChild extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Container(
             height: 600,
-            color: secondPrimary,
+            color: kSecondColor,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 38),
               child: Row(
@@ -150,7 +150,7 @@ class LargeChild extends StatelessWidget {
                       Card(
                         margin: const EdgeInsets.only(bottom: 100),
                         elevation: 10,
-                        color: secondPrimary,
+                        color: kSecondColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
@@ -163,7 +163,7 @@ class LargeChild extends StatelessWidget {
                       Card(
                         margin: const EdgeInsets.only(top: 100),
                         elevation: 10,
-                        color: secondPrimary,
+                        color: kSecondColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
@@ -181,7 +181,7 @@ class LargeChild extends StatelessWidget {
         //Our services..
         Container(
           height: 600,
-          color: secondPrimary,
+          color: kSecondColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
             child: Column(
@@ -236,7 +236,7 @@ class LargeChild extends StatelessWidget {
                     text: const TextSpan(
                         text: 'Technology ',
                         style: TextStyle(
-                          color: secondPrimary,
+                          color: kSecondColor,
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
                         ),
@@ -244,13 +244,12 @@ class LargeChild extends StatelessWidget {
                           TextSpan(
                             text:
                                 'isnt about the latest\ngadgets or apps. Its about what these things do for people. Its about bringing people together and\n',
-                            style:
-                                TextStyle(color: secondPrimary, fontSize: 28),
+                            style: TextStyle(color: kSecondColor, fontSize: 28),
                           ),
                           TextSpan(
                             text: ' making lives better',
                             style: TextStyle(
-                                color: secondPrimary,
+                                color: kSecondColor,
                                 fontSize: 38,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -263,7 +262,7 @@ class LargeChild extends StatelessWidget {
         ),
         Container(
           height: 600,
-          color: secondPrimary,
+          color: kSecondColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 38),
             child: Row(
@@ -401,7 +400,7 @@ class SmallChild extends StatelessWidget {
 
           Container(
             height: 600,
-            color: secondPrimary,
+            color: kSecondColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -428,7 +427,7 @@ class SmallChild extends StatelessWidget {
                       Card(
                         margin: const EdgeInsets.only(bottom: 100),
                         elevation: 10,
-                        color: secondPrimary,
+                        color: kSecondColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
@@ -443,7 +442,7 @@ class SmallChild extends StatelessWidget {
                       Card(
                         margin: const EdgeInsets.only(top: 100),
                         elevation: 10,
-                        color: secondPrimary,
+                        color: kSecondColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
@@ -460,7 +459,7 @@ class SmallChild extends StatelessWidget {
           ),
           // our services section..
           Container(
-            color: secondPrimary,
+            color: kSecondColor,
             child: Padding(
               padding: const EdgeInsets.all(18.0),
               child: Column(
@@ -514,7 +513,7 @@ class SmallChild extends StatelessWidget {
                     text: const TextSpan(
                         text: 'Technology ',
                         style: TextStyle(
-                          color: secondPrimary,
+                          color: kSecondColor,
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
@@ -522,13 +521,12 @@ class SmallChild extends StatelessWidget {
                           TextSpan(
                             text:
                                 'isnt about the latest gadgets or apps. Its about what these things do for people. Its about bringing people together and',
-                            style:
-                                TextStyle(color: secondPrimary, fontSize: 20),
+                            style: TextStyle(color: kSecondColor, fontSize: 20),
                           ),
                           TextSpan(
                             text: ' making lives better',
                             style: TextStyle(
-                                color: secondPrimary,
+                                color: kSecondColor,
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -539,7 +537,7 @@ class SmallChild extends StatelessWidget {
             ),
           ),
           Container(
-            color: secondPrimary,
+            color: kSecondColor,
             child: Padding(
               padding: const EdgeInsets.all(18.0),
               child: Column(

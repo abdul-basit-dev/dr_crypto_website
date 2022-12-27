@@ -2,7 +2,7 @@ import 'package:adaptive_navbar/adaptive_navbar.dart';
 import 'package:dr_crypto_website/constant.dart';
 import 'package:dr_crypto_website/screens/responsive_screen.dart';
 import 'package:dr_crypto_website/utils/responsive_layout.dart';
-import 'package:dr_crypto_website/widgets/navbar.dart';
+
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
@@ -15,12 +15,26 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
         backgroundColor: kPrimaryColor,
         appBar: AdaptiveNavBar(
+          elevation: 0.0,
+          toolbarHeight: 150,
           backgroundColor: kPrimaryColor,
           screenWidth: sw,
           centerTitle: false,
-          title: Image.asset(
-            'assets/images/logo.png',
-          ),
+          title: ResponsiveLayout.isSmallScreen(context)
+              ? Image.asset(
+                  'assets/images/dclogo.png',
+                  width: 120,
+                  height: 120,
+                  isAntiAlias: true,
+                  fit: BoxFit.fill,
+                )
+              : Image.asset(
+                  'assets/images/dclogo.png',
+                  width: 250,
+                  height: 250,
+                  isAntiAlias: true,
+                  fit: BoxFit.cover,
+                ),
           navBarItems: [
             NavBarItem(
               text: "Home",
@@ -50,7 +64,7 @@ class Dashboard extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: [
+            children: const [
               //  NavBar(),
               Body(),
             ],

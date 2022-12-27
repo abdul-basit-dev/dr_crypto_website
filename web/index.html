@@ -54,5 +54,29 @@
       });
     });
   </script>
+  <!-- Firebase Congig -->
+
+  <script type="module">
+    
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+   // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+   
+    const firebaseConfig = {
+      apiKey: "AIzaSyC4OpK-cEmSXks_odrqt8l33nArF6Vv0W8",
+      authDomain: "drcrypto-1d034.firebaseapp.com",
+      databaseURL: "https://drcrypto-1d034-default-rtdb.firebaseio.com",
+      projectId: "drcrypto-1d034",
+      storageBucket: "drcrypto-1d034.appspot.com",
+      messagingSenderId: "97891266362",
+      appId: "1:97891266362:web:81c690f735ff289db12a03",
+      measurementId: "G-T8YN313XPM"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+   // const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
