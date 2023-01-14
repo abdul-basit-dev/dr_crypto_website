@@ -490,13 +490,15 @@ class _AdminPanelState extends State<AdminPanel> {
                       //TODO:Buy Price
                       DataCell(
                         isLoadingPrice == true && isLoading == true
+                            // ? Text(
+                            //     "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD" ==
+                            //             "${priceData[index]['pairName']}"
+                            //         ? "\$${priceData[index]['buyPrice']} ${priceData[index]['pairName']} "
+                            //         : '--${priceData[index]['pairName']}  "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD"',
+                            //     style: const TextStyle(fontSize: 13.5),
+                            //   )
                             ? Text(
-                                "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD" ==
-                                        "${priceData[index]['pairName']}"
-                                    ? "\$${priceData[index]['buyPrice']} ${priceData[index]['pairName']} "
-                                    : '--',
-                                style: const TextStyle(fontSize: 13.5),
-                              )
+                                "\$${priceData[index]['buyPrice']} ${priceData[index]['pairName']} ")
                             : const CircularProgressIndicator(),
                       ),
                       //Current Price
@@ -641,8 +643,12 @@ class _AdminPanelState extends State<AdminPanel> {
 
       setState(() {
         for (var data in snapshot.children) {
-          priceData.add(data.value);
+          if ((data.value as dynamic)["pairName"] == pair) {
+            priceData.add(data.value);
+            print((data.value as dynamic)["pairName"] as String);
+          }
         }
+        // print(priceData);
 
         isLoadingPrice = true;
       });
