@@ -4,6 +4,7 @@ import 'package:dr_crypto_website/widgets/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constant.dart';
 
@@ -144,8 +145,20 @@ class _AdminLoginState extends State<AdminLogin> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        showSimpleNotification(
+        const Text("No user found for that email."),
+        background: Colors.red,
+        autoDismiss: true,
+        position: NotificationPosition.bottom,
+      );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided.');
+        showSimpleNotification(
+        const Text("Wrong password provided."),
+        background: Colors.red,
+        autoDismiss: true,
+        position: NotificationPosition.bottom,
+      );
       }
     }
 
@@ -164,7 +177,7 @@ class _AdminLoginState extends State<AdminLogin> {
     return TextFormField(
       cursorColor: kPrimaryColor,
       controller: passwordCtrl,
-      obscureText: true,
+      obscureText: false,
       onSaved: (newValue) => password = newValue,
       validator: (value) {
         if (value!.isEmpty) {
@@ -202,10 +215,10 @@ class _AdminLoginState extends State<AdminLogin> {
       onSaved: (newValue) => email = newValue,
       validator: (value) {
         if (value!.isEmpty) {
-          ;
+          
           return kEmailNullError;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
-          ;
+          
           return kInvalidEmailError;
         }
         return null;

@@ -10,9 +10,7 @@ class UserModel {
   late String _photoUrl;
   late String _status;
   late String _token;
-  late String _price2;
-  late String _profitLoss;
-  late String _plStatus;
+  
 
   //constructor for add
   UserModel(
@@ -24,9 +22,7 @@ class UserModel {
     this._photoUrl,
     this._status,
     this._token,
-    this._price2,
-    this._profitLoss,
-    this._plStatus,
+   
   );
 
   //Constructor for edit
@@ -40,9 +36,7 @@ class UserModel {
     this._photoUrl,
     this._status,
     this._token,
-    this._price2,
-    this._profitLoss,
-    this._plStatus,
+   
   );
   //Constructor for edit without password
   UserModel.editwithId(
@@ -50,13 +44,11 @@ class UserModel {
     this._userName,
     this._phone,
     this._email,
-    this._address,
+    //this._address,
     this._photoUrl,
     this._status,
     this._token,
-    this._price2,
-    this._profitLoss,
-    this._plStatus,
+  
   );
 
   //getters
@@ -69,9 +61,7 @@ class UserModel {
   String get photoUrl => _photoUrl;
   String get status => _status;
   String get token => _token;
-  String get price2 => _price2;
-  String get profitLoss => _profitLoss;
-  String get plStatus => _plStatus;
+  
 
   //Setters
   set setFirstName(String firstName) {
@@ -114,13 +104,11 @@ class UserModel {
     _password = (snapshot.value as dynamic)["password"];
     _phone = (snapshot.value as dynamic)["phone"];
     _email = (snapshot.value as dynamic)["email"];
-    _address = (snapshot.value as dynamic)["address"];
+    // _address = (snapshot.value as dynamic)["address"];
     _photoUrl = (snapshot.value as dynamic)["photoUrl"];
     _status = (snapshot.value as dynamic)["status"];
     _token = (snapshot.value as dynamic)["token"];
-    _price2 = (snapshot.value as dynamic)["price2"];
-    _profitLoss = (snapshot.value as dynamic)["profitLoss"];
-    _plStatus = (snapshot.value as dynamic)["plStatus"];
+ 
   }
 
 //Converting class object to JSON
@@ -131,13 +119,11 @@ class UserModel {
       "password": _password,
       "phone": _phone,
       "email": _email,
-      "address": _address,
+   
       "photoUrl": _photoUrl,
       "status": _status,
       "token": _token,
-      "price2": _price2,
-      "profitLoss": _profitLoss,
-      "plStatus": plStatus,
+     
     };
   }
 }
