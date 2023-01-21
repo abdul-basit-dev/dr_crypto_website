@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:adaptive_navbar/adaptive_navbar.dart';
 import 'package:dio/dio.dart';
@@ -63,17 +64,22 @@ class _AdminPanelState extends State<AdminPanel> {
     try {
       response = await dio.get(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=$_itemPerPage&sparkline=false");
-      // print("Response data : ${response.data}");
+      //  print("Response data : ${response.data}");
       // _listCoin = _response.data;
       if (_listCoin == null) {
-        _listCoin = List.generate(10, (i) => response.data[i]);
+        _listCoin = List.generate(
+          10,
+          (i) => response.data[i],
+        );
       } else {
         int j = 0;
         for (int i = _currentMax; i < _currentMax + 10; i++) {
           _listCoin.add(response.data[j]);
+
           j++;
         }
       }
+      print(_listCoin);
       print("Success");
       // updatePrice();
       _isLoading = false;
@@ -116,11 +122,11 @@ class _AdminPanelState extends State<AdminPanel> {
   }
 
 //field for dialog
-  String? codeDialog;
+
   String? valueText;
   final TextEditingController _textFieldController = TextEditingController();
-  Future<void> _displayTextInputDialog(
-      BuildContext context, String uid, String pairVolDB, String price) async {
+  Future<void> _displayTextInputDialog(BuildContext context, String uid,
+      String pairVolDB, String price, String pairId) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -140,10 +146,7 @@ class _AdminPanelState extends State<AdminPanel> {
                 const SizedBox(height: 8),
                 TextField(
                   onChanged: (value) {
-                    setState(() {
-                      valueText = value;
-                      price = value;
-                    });
+                    valueText = value;
                   },
                   controller: _textFieldController,
                   decoration: const InputDecoration(
@@ -162,10 +165,7 @@ class _AdminPanelState extends State<AdminPanel> {
                   style: TextStyle(color: kSecondColor),
                 ),
                 onPressed: () {
-                  setState(() {
-                    //_textFieldController.text = '';
-                    Navigator.pop(context);
-                  });
+                  Navigator.pop(context);
                 },
               ),
               ElevatedButton(
@@ -175,20 +175,18 @@ class _AdminPanelState extends State<AdminPanel> {
                   style: TextStyle(color: kSecondColor),
                 ),
                 onPressed: () {
-                  setState(() {
-                    codeDialog = valueText;
-
-                    if (_textFieldController.text.isNotEmpty) {
-                      updatePrice(uid, pairVolDB);
-                    } else {
-                      showSimpleNotification(
-                        const Text("Please enter price"),
-                        background: Colors.red,
-                        autoDismiss: true,
-                        position: NotificationPosition.bottom,
-                      );
-                    }
-                  });
+                  price = _textFieldController.text;
+                  if (_textFieldController.text.isNotEmpty) {
+                    updatePrice(uid, pairVolDB, pairId, price);
+                    _textFieldController.text = '';
+                  } else {
+                    showSimpleNotification(
+                      const Text("Please enter price"),
+                      background: Colors.red,
+                      autoDismiss: true,
+                      position: NotificationPosition.bottom,
+                    );
+                  }
                 },
               ),
             ],
@@ -196,27 +194,28 @@ class _AdminPanelState extends State<AdminPanel> {
         });
   }
 
-  String idGenerator() {
-    final now = DateTime.now();
-    return now.microsecondsSinceEpoch.toString();
-  }
+  // String idGenerator() {
+  //   final now = DateTime.now();
+  //   return now.microsecondsSinceEpoch.toString();
+  // }
 
-  Future<void> updatePrice(String uid, String pairName) async {
-    double baughtPrice = double.parse(codeDialog!);
+  Future<void> updatePrice(
+      String uid, String pairName, String pairId, buyPrice) async {
+    // buyPrice = codeDialog!;
     PriceModel priceModel = PriceModel.withId(
-      idGenerator(),
+      pairId,
       pairName,
-      baughtPrice.toString(),
+      buyPrice,
     );
     if (user != null) {
       await storage
           .storePriceData(
         priceModel,
         uid,
-        pairName,
+        pairId,
       )
           .then((value) {
-        Navigator.pop(context);
+        //  Navigator.pop(context);
       });
     } else {
       showSimpleNotification(
@@ -243,7 +242,7 @@ class _AdminPanelState extends State<AdminPanel> {
   @override
   void initState() {
     super.initState();
-
+    //priceData.clear();
     user = _auth.currentUser;
     if (user != null) {
       getCurrentUser();
@@ -326,7 +325,7 @@ class _AdminPanelState extends State<AdminPanel> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  if (tableIndex >= 1) {
+                                  if (tableIndex >= 1 && priceData.length > 0) {
                                     tableIndex--;
                                     for (int i = 0; i < userModel.length; i++) {
                                       getCurrentUserPrice(userModel[i].id!,
@@ -343,15 +342,19 @@ class _AdminPanelState extends State<AdminPanel> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  tableIndex++;
+                                  priceData.clear();
 
-                                  for (int i = 0; i < userModel.length; i++) {
-                                    getCurrentUserPrice(userModel[i].id!,
-                                        "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD");
-                                  }
-
-                                  if (tableIndex == 10) {
-                                    tableIndex = 0;
+                                  try {
+                                    tableIndex++;
+                                    if (tableIndex == _listCoin.length) {
+                                      tableIndex = 0;
+                                    }
+                                    for (int i = 0; i < userModel.length; i++) {
+                                      getCurrentUserPrice(userModel[i].id!,
+                                          "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD");
+                                    }
+                                  } on Exception catch (_, exception) {
+                                    exception.toString();
                                   }
                                 });
                               },
@@ -489,17 +492,11 @@ class _AdminPanelState extends State<AdminPanel> {
                       ),
                       //TODO:Buy Price
                       DataCell(
-                        isLoadingPrice == true && isLoading == true
-                            // ? Text(
-                            //     "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD" ==
-                            //             "${priceData[index]['pairName']}"
-                            //         ? "\$${priceData[index]['buyPrice']} ${priceData[index]['pairName']} "
-                            //         : '--${priceData[index]['pairName']}  "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD"',
-                            //     style: const TextStyle(fontSize: 13.5),
-                            //   )
+                        isLoading == true && isLoadingPrice == true
                             ? Text(
-                                "\$${priceData[index]['buyPrice']} ${priceData[index]['pairName']} ")
-                            : const CircularProgressIndicator(),
+                                "\$ ${priceData[index]['buyPrice']}",
+                              )
+                            : const Text('No Data'),
                       ),
                       //Current Price
                       DataCell(
@@ -547,13 +544,99 @@ class _AdminPanelState extends State<AdminPanel> {
                       //Profit Loss
                       DataCell(
                         Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 10),
-                            // margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration:
-                                const BoxDecoration(color: Colors.white24),
-                            child: Container()),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          // margin: EdgeInsets.symmetric(vertical: 5),
+                          decoration:
+                              const BoxDecoration(color: Colors.white24),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (priceData[index]['buyPrice'] != '--')
+                                if (_listCoin[0]['current_price'] <
+                                    double.parse(priceData[index]['buyPrice']))
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          "\$${profit(_listCoin[0]['current_price'], double.parse(priceData[index]['buyPrice'])).toStringAsFixed(2)}"),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(Icons.arrow_drop_up_sharp,
+                                              color: Colors.green[600]),
+                                          Text(
+                                            ((profit(
+                                                            _listCoin[0][
+                                                                'current_price'],
+                                                            double.parse(priceData[
+                                                                    index]
+                                                                ['buyPrice'])) /
+                                                        _listCoin[0]
+                                                            ['current_price']) *
+                                                    100)
+                                                .toStringAsFixed(2),
+                                            style: const TextStyle(
+                                                fontSize: 9,
+                                                color: Colors.green),
+                                          ),
+                                          const Text(
+                                            " %",
+                                            style: TextStyle(
+                                                fontSize: 9,
+                                                color: Colors.green),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                else if (_listCoin[0]['current_price'] >
+                                    double.parse(priceData[index]['buyPrice']))
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          "\$${loss(_listCoin[0]['current_price'], double.parse(priceData[index]['buyPrice'])).toStringAsFixed(2)}"),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(Icons.arrow_drop_down_sharp,
+                                              color: Colors.red[600]),
+                                          Text(
+                                            ((loss(
+                                                            _listCoin[0][
+                                                                'current_price'],
+                                                            double.parse(priceData[
+                                                                    index]
+                                                                ['buyPrice'])) /
+                                                        _listCoin[0]
+                                                            ['current_price']) *
+                                                    100)
+                                                .toStringAsFixed(2),
+                                            style: const TextStyle(
+                                                fontSize: 9, color: Colors.red),
+                                          ),
+                                          const Text(
+                                            " %",
+                                            style: TextStyle(
+                                                fontSize: 9, color: Colors.red),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                            ],
+                          ),
+                        ),
                       ),
+
                       //Edit
                       DataCell(
                         Padding(
@@ -561,13 +644,30 @@ class _AdminPanelState extends State<AdminPanel> {
                           child: DefaultButton(
                             press: () {
                               setState(() {
+                                _textFieldController.text =
+                                    "${priceData[index]['buyPrice']}";
                                 _displayTextInputDialog(
                                   context,
                                   userModel[index].id!,
                                   "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD",
                                   "${priceData[index]['buyPrice']}",
+                                  "${priceData[index]['pairId']}",
                                 );
                               });
+                              showSimpleNotification(
+                                  Text(
+                                    userModel[index].id! +
+                                        "\n" +
+                                        "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD" +
+                                        "\n" +
+                                        "${priceData[index]['buyPrice']}" +
+                                        "\n" +
+                                        "${priceData[index]['pairId']}",
+                                  ),
+                                  background: Colors.green,
+                                  autoDismiss: false,
+                                  position: NotificationPosition.bottom,
+                                  slideDismiss: true);
                             },
                             text: 'Edit',
                           ),
@@ -636,19 +736,23 @@ class _AdminPanelState extends State<AdminPanel> {
   Future<void> getCurrentUserPrice(String uid, String pair) async {
     _databaseReference
         .child(uid)
-        .child('price')
+        .child('portfolio')
         .onValue
         .listen((DatabaseEvent event) {
       var snapshot = event.snapshot;
+
+      //  priceData.clear();
 
       setState(() {
         for (var data in snapshot.children) {
           if ((data.value as dynamic)["pairName"] == pair) {
             priceData.add(data.value);
             print((data.value as dynamic)["pairName"] as String);
+          } else {
+            // print('No Data Available');
           }
         }
-        // print(priceData);
+        print(priceData);
 
         isLoadingPrice = true;
       });
