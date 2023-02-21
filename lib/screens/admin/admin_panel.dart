@@ -52,7 +52,7 @@ class _AdminPanelState extends State<AdminPanel> {
   final formatter = intl.NumberFormat("#,##0.0######"); // for price change
   final percentageFormat = intl.NumberFormat("##0.0#"); // for price change
   Timer? _timer;
-  int _itemPerPage = 1, _currentMax = 10;
+  int _itemPerPage = 1, _currentMax = 9;
 
   final ScrollController _scrollController = ScrollController();
 
@@ -68,12 +68,12 @@ class _AdminPanelState extends State<AdminPanel> {
       // _listCoin = _response.data;
       if (_listCoin == null) {
         _listCoin = List.generate(
-          10,
+          9,
           (i) => response.data[i],
         );
       } else {
         int j = 0;
-        for (int i = _currentMax; i < _currentMax + 10; i++) {
+        for (int i = _currentMax; i < _currentMax + 9; i++) {
           _listCoin.add(response.data[j]);
 
           j++;
@@ -325,7 +325,7 @@ class _AdminPanelState extends State<AdminPanel> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  if (tableIndex >= 1 && priceData.length > 0) {
+                                  if (tableIndex >= 1) {
                                     tableIndex--;
                                     for (int i = 0; i < userModel.length; i++) {
                                       getCurrentUserPrice(userModel[i].id!,
@@ -349,6 +349,7 @@ class _AdminPanelState extends State<AdminPanel> {
                                     if (tableIndex == _listCoin.length) {
                                       tableIndex = 0;
                                     }
+                                    
                                     for (int i = 0; i < userModel.length; i++) {
                                       getCurrentUserPrice(userModel[i].id!,
                                           "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD");
@@ -749,7 +750,7 @@ class _AdminPanelState extends State<AdminPanel> {
             priceData.add(data.value);
             print((data.value as dynamic)["pairName"] as String);
           } else {
-            // print('No Data Available');
+            print('No Data Available');
           }
         }
         print(priceData);

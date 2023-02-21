@@ -149,8 +149,8 @@ class LargeChild extends StatelessWidget {
                     children: [
                       Card(
                         margin: const EdgeInsets.only(bottom: 100),
-                        elevation: 10,
-                        color: kSecondColor,
+                        elevation: 8,
+                        color: Color(0xFFF0E9E1),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
@@ -162,8 +162,8 @@ class LargeChild extends StatelessWidget {
                       ),
                       Card(
                         margin: const EdgeInsets.only(top: 100),
-                        elevation: 10,
-                        color: kSecondColor,
+                        elevation: 8,
+                        color: Color(0xFFEAE6E3),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.asset(
@@ -194,25 +194,30 @@ class LargeChild extends StatelessWidget {
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisSize: MainAxisSize.min,
                   children: [
+                    const Spacer(),
                     CardsWidget(
                       icontype: Icons.message,
                       textHeading: 'App consultancy',
                       discription:
                           'We help you define\nthe best features for your app',
                     ),
+                    const Spacer(),
                     CardsWidget(
                       icontype: Icons.category,
                       textHeading: 'Crypto Services',
                       discription:
                           'We provide\noutstanding app\ndesign for your app',
                     ),
+                    const Spacer(),
                     CardsWidget(
                       icontype: Icons.add_box,
                       textHeading: 'Subscription',
                       discription:
                           'We help you define\nthe best features for\n your app',
                     ),
+                    const Spacer(),
                   ],
                 ),
                 const Spacer(),
