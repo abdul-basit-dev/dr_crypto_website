@@ -6,8 +6,8 @@ import 'package:dr_crypto_website/utils/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
-
+  Dashboard({Key? key}) : super(key: key);
+  ScrollController scrollcontrol = ScrollController();
   @override
   Widget build(BuildContext context) {
     final sw = MediaQuery.of(context).size.width;
@@ -39,30 +39,48 @@ class Dashboard extends StatelessWidget {
             NavBarItem(
               text: "Home",
               onTap: () {
-                Navigator.pushNamed(context, "routeName");
+                //Navigator.pushNamed(context, "routeName");
+                double startpositon = scrollcontrol.position.minScrollExtent;
+                scrollcontrol.position.jumpTo(startpositon);
+              },
+            ),
+            NavBarItem(
+            
+              text: "Our Services",
+              onTap: () {
+                double servicespositon = 610.0;
+                scrollcontrol.position.jumpTo(servicespositon);
+                //Navigator.pushNamed(context, "routeName");
               },
             ),
             NavBarItem(
               text: "About",
               onTap: () {
-                Navigator.pushNamed(context, "routeName");
-              },
-            ),
-            NavBarItem(
-              text: "Contact",
-              onTap: () {
-                Navigator.pushNamed(context, "routeName");
+                double servicespositon = 1210.0;
+                scrollcontrol.position.jumpTo(servicespositon);
+               // Navigator.pushNamed(context, "routeName");
               },
             ),
             NavBarItem(
               text: "App Download",
               onTap: () {
-                Navigator.pushNamed(context, "routeName");
+                double servicespositon = 1810.0;
+                scrollcontrol.position.jumpTo(servicespositon);
+                //Navigator.pushNamed(context, "routeName");
+              },
+            ),
+            NavBarItem(
+              text: "Contact",
+              onTap: () {
+                double endposition = scrollcontrol.position.maxScrollExtent;
+                scrollcontrol.position.jumpTo(endposition);
+                // Navigator.pushNamed(context, "routeName");
               },
             ),
           ],
         ),
         body: SingleChildScrollView(
+          controller: scrollcontrol,
           child: Column(
             children: const [
               //  NavBar(),

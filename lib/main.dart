@@ -1,8 +1,5 @@
-import 'package:dr_crypto_website/screens/admin/admin_login.dart';
 import 'package:dr_crypto_website/screens/dashborad.dart';
-
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -32,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const Dashboard(),
+        home:  Dashboard(),
       ),
     );
   }
