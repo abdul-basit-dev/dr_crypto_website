@@ -1,5 +1,6 @@
 import 'package:dr_crypto_website/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/card_widget.dart';
 import '../widgets/heading_widget.dart';
@@ -398,26 +399,58 @@ class LargeChild extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    HeadingWidget(
-                      textHeading: 'Connect with us',
-                      color: kPrimaryColor,
-                      fontsize: 40,
-                    ),
+                    RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'For any queries or other information \n',
+                          style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        new TextSpan(
+                          text: 'Contact us',
+                          style: new TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )),
+                    // HeadingWidget(
+
+                    //   textHeading: 'Connect with us',
+                    //   color: kPrimaryColor,
+                    //   fontsize: 40,
+                    // ),
                     const SizedBox(height: 20),
-                    HeadingWidget(
-                      textHeading: 'Twitter',
-                      fontsize: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.0, bottom: 8),
+                    InkWell(
+                      onTap: () => launchUrl(Uri.parse(
+                          "https://twitter.com/doctorcryptolab?t=8FIQIGG_-nIk3AZ1VnxS4Q&s=09")),
                       child: HeadingWidget(
-                        textHeading: 'Facebook',
+                        textHeading: 'Twitter',
                         fontsize: 20,
+                        color: kPrimaryColor,
                       ),
                     ),
-                    HeadingWidget(
-                      textHeading: 'Instragram',
-                      fontsize: 20,
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 8.0, bottom: 8),
+                    //   child: HeadingWidget(
+                    //     textHeading: 'Facebook',
+                    //     fontsize: 20,
+                    //   ),
+                    // ),
+                    const SizedBox(height: 20),
+
+                    InkWell(
+                      onTap: () => launchUrl(Uri.parse(
+                          "https://instagram.com/doctorcryptolabs?igshid=YmMyMTA2M2Y")),
+                      child: HeadingWidget(
+                        textHeading: 'Instragram',
+                        fontsize: 20,
+                        color: kPrimaryColor,
+                      ),
                     ),
                   ],
                 ),
@@ -425,34 +458,70 @@ class LargeChild extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    HeadingWidget(
-                      textHeading: 'Mailing Address',
-                      color: kPrimaryColor,
-                      fontsize: 20,
-                    ),
-                    const Text(
-                      'abc anywhere St, And city\nState, Country 12345',
-                      style: TextStyle(fontSize: 16, color: Colors.black),
-                    ),
-                    const SizedBox(height: 20),
+                    // HeadingWidget(
+                    //   textHeading: 'Mailing Address',
+                    //   color: kPrimaryColor,
+                    //   fontsize: 20,
+                    // ),
+                    // const Text(
+                    //   'abc anywhere St, And city\nState, Country 12345',
+                    //   style: TextStyle(fontSize: 16, color: Colors.black),
+                    // ),
+                    // const SizedBox(height: 20),
                     HeadingWidget(
                       textHeading: 'Email Address',
                       color: kPrimaryColor,
                       fontsize: 20,
                     ),
-                    const Text(
-                      'hello@gmail.com',
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    InkWell(
+                      // onTap:()=>launchUrl(""),
+                      child: const Text(
+                        'doctorcrypto94@gmail.com',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
                     ),
                     const SizedBox(height: 20),
                     HeadingWidget(
-                      textHeading: 'Phone Number',
-                      color: kPrimaryColor,
-                      fontsize: 20,
-                    ),
+                        textHeading: 'Phone Number',
+                        color: kPrimaryColor,
+                        fontsize: 20),
                     HeadingWidget(
-                      textHeading: '(123) 123456',
+                      textHeading: '(+91)9967406320',
                     ),
+                    SizedBox(height: 40),
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/privacy_policy');
+                          },
+                          child: Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: kPrimaryColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                            width: 30), // Add some spacing between the texts
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/terms_and_conditions');
+                          },
+                          child: Text(
+                            'Terms & Condition',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: kPrimaryColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ],
@@ -814,40 +883,51 @@ class SmallChild extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  HeadingWidget(
-                    textHeading: 'Twitter',
-                    color: kPrimaryColor,
-                    fontsize: 16,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
+                  InkWell(
+                    onTap: () => launch(
+                        "https://twitter.com/doctorcryptolab?t=8FIQIGG_-nIk3AZ1VnxS4Q&s=09"),
                     child: HeadingWidget(
-                      textHeading: 'Facebook',
+                      textHeading: 'Twitter',
                       color: kPrimaryColor,
                       fontsize: 16,
                     ),
                   ),
-                  HeadingWidget(
-                    textHeading: 'Instagram',
-                    color: kPrimaryColor,
-                    fontsize: 16,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(20.0),
+                  //   child: HeadingWidget(
+                  //     textHeading: 'Facebook',
+                  //     color: kPrimaryColor,
+                  //     fontsize: 16,
+                  //   ),
+                  // ),
+                  InkWell(
+                    onTap: () => launch(
+                        "https://instagram.com/doctorcryptolabs?igshid=YmMyMTA2M2Y"),
+                    child: HeadingWidget(
+                      textHeading: 'Instagram',
+                      color: kPrimaryColor,
+                      fontsize: 16,
+                    ),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  HeadingWidget(
-                    textHeading: 'Mailing Address',
-                    color: kPrimaryColor,
-                    fontsize: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: HeadingWidget(
-                      textHeading:
-                          'abc anywhere St, And city\nState, Country 12345',
-                      fontsize: 16,
-                    ),
-                  ),
+                  // HeadingWidget(
+                  //   textHeading: 'Mailing Address',
+                  //   color: kPrimaryColor,
+                  //   fontsize: 20,
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10.0),
+                  //   child: HeadingWidget(
+                  //     textHeading:
+                  //         'abc anywhere St, And city\nState, Country 12345',
+                  //     fontsize: 16,
+                  //   ),
+                  // ),
                   const SizedBox(height: 20),
                   HeadingWidget(
                     textHeading: 'Email Address',
@@ -857,7 +937,7 @@ class SmallChild extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: HeadingWidget(
-                      textHeading: 'hello@gmail.com',
+                      textHeading: 'doctorcrypto94@gmail.com',
                       fontsize: 16,
                       color: Colors.black,
                     ),
@@ -871,10 +951,47 @@ class SmallChild extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: HeadingWidget(
-                      textHeading: '(123) 123456',
+                      textHeading: '(+91)9967406320',
                       fontsize: 16,
                     ),
                   ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/privacy');
+                        },
+                        child: Text(
+                          'Privacy Policy',
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ), // Add some spacing between the texts
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/terms');
+                        },
+                        child: Text(
+                          'Terms & Condition',
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

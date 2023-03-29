@@ -1,4 +1,8 @@
+import 'package:dr_crypto_website/screens/admin/admin_login.dart';
 import 'package:dr_crypto_website/screens/dashborad.dart';
+import 'package:dr_crypto_website/screens/privacy_policy/privacy_policy.dart';
+import 'package:dr_crypto_website/screens/terms_and_conditions/terms_and_conditions.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -25,11 +29,18 @@ class MyApp extends StatelessWidget {
     return OverlaySupport.global(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Dr Crypto',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:  Dashboard(),
+        // home: AdminLogin(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Dashboard(),
+          '/terms_and_conditions': (context) => TermsAndCondtions(),
+          '/privacy_policy': (context) => PrivacyPolicy(),
+          '/admin': (context) => AdminLogin(),
+        },
       ),
     );
   }

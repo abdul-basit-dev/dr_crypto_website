@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constant.dart';
 
 class AdminLogin extends StatefulWidget {
+  static String routeName = "/admin";
   const AdminLogin({super.key});
 
   @override
@@ -55,9 +56,7 @@ class _AdminLoginState extends State<AdminLogin> {
       if (user != null) {
         userEmail = user.email;
         print(userEmail);
-        if (userEmail == "admin@gmail.com") {
-          gotoAdminDashboard();
-        }
+        gotoAdminDashboard();
       }
     }
   }
@@ -65,6 +64,7 @@ class _AdminLoginState extends State<AdminLogin> {
   @override
   void initState() {
     super.initState();
+    checkAuth();
     getUser();
   }
 
@@ -104,8 +104,17 @@ class _AdminLoginState extends State<AdminLogin> {
                                 padding: EdgeInsets.symmetric(vertical: 24)),
                             DefaultButton(
                               press: () {
-                                signInWithEmailPassword(
-                                    emailCtrl.text, passwordCtrl.text);
+                                if (emailCtrl.text == "" ||
+                                    passwordCtrl.text == "") {
+                                  showSimpleNotification(
+                                    const Text("All fields are required!"),
+                                    background: Colors.red,
+                                    autoDismiss: true,
+                                    position: NotificationPosition.bottom,
+                                  );
+                                } else {
+                                  login(emailCtrl.text, passwordCtrl.text);
+                                }
                               },
                               text: 'Login',
                             ),
@@ -122,20 +131,22 @@ class _AdminLoginState extends State<AdminLogin> {
   }
 
   //Login with firebaase
-  Future<User?> signInWithEmailPassword(String email, String password) async {
+  Future<User?> login(String email, String password) async {
     // await Firebase.initializeApp();
-    User? user;
+    User? user1;
 
+    //
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      user = userCredential.user;
+      user1 = userCredential.user;
+      print(user1!.email);
 
-      if (user != null) {
-        uid = user.uid;
-        userEmail = user.email;
+      if (user1 != null) {
+        uid = user1.uid;
+        userEmail = user1.email;
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setBool('auth', true);
@@ -146,23 +157,23 @@ class _AdminLoginState extends State<AdminLogin> {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
         showSimpleNotification(
-        const Text("No user found for that email."),
-        background: Colors.red,
-        autoDismiss: true,
-        position: NotificationPosition.bottom,
-      );
+          const Text("No user found for that email."),
+          background: Colors.red,
+          autoDismiss: true,
+          position: NotificationPosition.bottom,
+        );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided.');
         showSimpleNotification(
-        const Text("Wrong password provided."),
-        background: Colors.red,
-        autoDismiss: true,
-        position: NotificationPosition.bottom,
-      );
+          const Text("Wrong password provided."),
+          background: Colors.red,
+          autoDismiss: true,
+          position: NotificationPosition.bottom,
+        );
       }
     }
 
-    return user;
+    return user1;
   }
 
   gotoAdminDashboard() {
@@ -215,10 +226,8 @@ class _AdminLoginState extends State<AdminLogin> {
       onSaved: (newValue) => email = newValue,
       validator: (value) {
         if (value!.isEmpty) {
-          
           return kEmailNullError;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
-          
           return kInvalidEmailError;
         }
         return null;

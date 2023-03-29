@@ -6,6 +6,7 @@ import 'package:dr_crypto_website/utils/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
+  static String routeName = "/";
   Dashboard({Key? key}) : super(key: key);
   ScrollController scrollcontrol = ScrollController();
   @override
@@ -15,6 +16,7 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
         backgroundColor: kPrimaryColor,
         appBar: AdaptiveNavBar(
+          automaticallyImplyLeading: false,
           elevation: 0.0,
           toolbarHeight: 150,
           backgroundColor: kPrimaryColor,
@@ -45,8 +47,7 @@ class Dashboard extends StatelessWidget {
               },
             ),
             NavBarItem(
-            
-              text: "Our Services",
+              text: "Services",
               onTap: () {
                 double servicespositon = 610.0;
                 scrollcontrol.position.jumpTo(servicespositon);
@@ -58,11 +59,11 @@ class Dashboard extends StatelessWidget {
               onTap: () {
                 double servicespositon = 1210.0;
                 scrollcontrol.position.jumpTo(servicespositon);
-               // Navigator.pushNamed(context, "routeName");
+                // Navigator.pushNamed(context, "routeName");
               },
             ),
             NavBarItem(
-              text: "App Download",
+              text: "Try App",
               onTap: () {
                 double servicespositon = 1810.0;
                 scrollcontrol.position.jumpTo(servicespositon);
