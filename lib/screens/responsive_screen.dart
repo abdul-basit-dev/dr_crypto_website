@@ -1,9 +1,11 @@
 import 'package:dr_crypto_website/constant.dart';
+import 'package:dr_crypto_website/widgets/expendable_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/card_widget.dart';
 import '../widgets/heading_widget.dart';
+import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 
 class LargeChild extends StatelessWidget {
   const LargeChild({super.key});
@@ -26,7 +28,7 @@ class LargeChild extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "As the Value goes up,head starts to\nswivels, and spectics soften",
+                      "Empowering you to make informed \ndecisions in the crypto currency market.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,
@@ -140,10 +142,22 @@ class LargeChild extends StatelessWidget {
         //         crossAxisAlignment: CrossAxisAlignment.center,
         //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //         children: [
-        //           HeadingWidget(
-        //             textHeading: 'Our Team',
-        //             color: kPrimaryColor,
-        //             fontsize: 30,
+        //           Column(
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //             children: [
+        //               HeadingWidget(
+        //                 textHeading: 'Who are we',
+        //                 color: kPrimaryColor,
+        //                 fontsize: 30,
+        //               ),
+        //               SizedBox(
+        //                 height: 20,
+        //               ),
+        //               Text(
+        //                 "Dr. Crypto is a cryptocurrency advisory platform that provides end-to-end \nsolutions, from investment to liquidation, for a minimal fee. Initially, we \nstarted off by providing services to our personal contacts through WhatsApp.\n After receiving a great response from our clients, we are now \nlooking to expand with the vision of creating wealth for\n as many people as possible.",
+        //                 style: TextStyle(fontWeight: FontWeight.bold),
+        //               )
+        //             ],
         //           ),
         //           Row(
         //             mainAxisAlignment: MainAxisAlignment.center,
@@ -178,6 +192,78 @@ class LargeChild extends StatelessWidget {
         //     ),
         //   ),
         // ),
+        Container(
+          height: 700,
+          color: kSecondColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+            child: Column(
+              children: [
+                HeadingWidget(
+                  textHeading: 'Our Team',
+                  color: kPrimaryColor,
+                  fontsize: 30,
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // const Spacer(),
+                    Expanded(
+                      child: Container(
+                        width: 350,
+                        // height: 300,
+                        child: ReadMoreCard(
+                            description:
+                                'Dr. Crypto is a cryptocurrency advisory platform that provides end-to-end solutions, from investment to liquidation, for a minimal fee. Initially, we started off by providing services to our personal contacts through WhatsApp. After receiving a great response from our clients, we are now looking to \nexpand with the vision of creating wealth for as many people as possible.\nKey Performance Indicators (KPIs)\n60+ Clients \n4 Countries covered',
+                            icontype: Icons.groups_outlined,
+                            title: "Who are we"),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    //  const Spacer(),
+                    Expanded(
+                      child: Container(
+                        width: 360,
+                        child: Expanded(
+                          child: ReadMoreCard(
+                              description:
+                                  '1).Free Consultancy:\nWe help first-time investors with expert guidance on the basics and importance of crypto currency investments as an asset class through video communication services.\n2:Advisory Plans: \nSelect our advisory plans, which are based on fundamental analysis of the cryptocurrency market and specific projects by our experienced analysts. We identify investment opportunities with a profit potential ranging from 100 to 1000%, and help simplify tax calculations thereafter. To avail this service, individuals can download our Android application from Google Play.\n3:Training and education:\nOur practical process provides individuals with the opportunity to gain in-depth knowledge and expertise in the dynamic world of cryptocurrency. We provide exclusive and updated news, breaking it down in such a way that even a layman can understand it.',
+                              icontype: Icons.workspace_premium_sharp,
+                              title: "What we do"),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    //  const Spacer(),
+                    Expanded(
+                      child: Container(
+                        width: 350,
+                        child: Expanded(
+                          child: ReadMoreCard(
+                              description:
+                                  '1. Decentralization: Cryptocurrencies are not controlled by any central authority, making them more democratic and secure.\n2. Security: Transactions are secured through encryption and other security measures, making it difficult to hack or manipulate the system\n3. No borders: Cryptocurrencies can be used globally, without any restrictions or limitations based on geographical location.\n4. Transparency: Transactions made on a public blockchain are transparent and can be easily tracked, providing greater accountability.\n5. Innovation: Cryptocurrencies and blockchain technology are constantly evolving, creating new opportunities for innovation and growth..',
+                              icontype: Icons.question_mark_outlined,
+                              title: "Why Cryptocurrency?"),
+                        ),
+                      ),
+                    ),
+                    // const Spacer(),
+                  ],
+                ),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         //third page...
         //Our services..
         Container(
@@ -387,6 +473,9 @@ class LargeChild extends StatelessWidget {
           ),
         ),
         //end of domload container
+        SizedBox(
+          height: 10,
+        ),
         Container(
           height: 600,
           color: kSecondColor,
@@ -509,7 +598,8 @@ class LargeChild extends StatelessWidget {
                             width: 30), // Add some spacing between the texts
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/terms_and_conditions');
+                            Navigator.pushNamed(
+                                context, '/terms_and_conditions');
                           },
                           child: Text(
                             'Terms & Condition',
@@ -593,65 +683,108 @@ class SmallChild extends StatelessWidget {
 
           // end of first page...
 
-          // Container(
-          //   height: 600,
-          //   color: kSecondColor,
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: <Widget>[
-          //       const Center(
-          //         child: Padding(
-          //           padding: EdgeInsets.all(18.0),
-          //           child: Text(
-          //             'Our Team',
-          //             textAlign: TextAlign.center,
-          //             style: TextStyle(
-          //               fontSize: 40,
-          //               fontWeight: FontWeight.bold,
-          //               fontFamily: "Montserrat-Regular",
-          //               color: kPrimaryColor,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //       Padding(
-          //         padding: const EdgeInsets.all(40.0),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: [
-          //             Card(
-          //               margin: const EdgeInsets.only(bottom: 100),
-          //               elevation: 10,
-          //               color: kSecondColor,
-          //               shape: RoundedRectangleBorder(
-          //                   borderRadius: BorderRadius.circular(20)),
-          //               child: Image.asset(
-          //                 'assets/images/men.png',
-          //                 width: MediaQuery.of(context).size.width * 0.30,
-          //                 height: MediaQuery.of(context).size.height * 0.3,
-          //               ),
-          //             ),
-          //             const SizedBox(
-          //               width: 20,
-          //             ),
-          //             Card(
-          //               margin: const EdgeInsets.only(top: 100),
-          //               elevation: 10,
-          //               color: kSecondColor,
-          //               shape: RoundedRectangleBorder(
-          //                   borderRadius: BorderRadius.circular(20)),
-          //               child: Image.asset(
-          //                 'assets/images/men.png',
-          //                 width: MediaQuery.of(context).size.width * 0.30,
-          //                 height: MediaQuery.of(context).size.height * 0.3,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          Container(
+            height: 700,
+            color: kSecondColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(18.0),
+                    child: Text(
+                      'Our Team',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat-Regular",
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+
+                //const Spacer(),
+                Center(
+                  child: Container(
+                    width: 300,
+                    // height: 300,
+                    child: Expanded(
+                      child: ReadMoreCard(
+                          description:
+                              'Dr. Crypto is a cryptocurrency advisory platform that provides end-to-end solutions, from investment to liquidation, for a minimal fee. Initially, we started off by providing services to our personal contacts through WhatsApp. After receiving a great response from our clients, we are now looking to \nexpand with the vision of creating wealth for as many people as possible.\nKey Performance Indicators (KPIs)\n60+ Clients \n4 Countries covered',
+                          icontype: Icons.groups_outlined,
+                          title: "Who are we"),
+                    ),
+                  ),
+                ),
+                //const Spacer(),
+                Center(
+                  child: Container(
+                    width: 300,
+                    child: Expanded(
+                      child: ReadMoreCard(
+                          description:
+                              '1).Free Consultancy:\nWe help first-time investors with expert guidance on the basics and importance of crypto currency investments as an asset class through video communication services.\n2:Advisory Plans: \nSelect our advisory plans, which are based on fundamental analysis of the cryptocurrency market and specific projects by our experienced analysts. We identify investment opportunities with a profit potential ranging from 100 to 1000%, and help simplify tax calculations thereafter. To avail this service, individuals can download our Android application from Google Play.\n3:Training and education:\nOur practical process provides individuals with the opportunity to gain in-depth knowledge and expertise in the dynamic world of cryptocurrency. We provide exclusive and updated news, breaking it down in such a way that even a layman can understand it.',
+                          icontype: Icons.workspace_premium_sharp,
+                          title: "What we do"),
+                    ),
+                  ),
+                ),
+                //  const Spacer(),
+                Center(
+                  child: Container(
+                    width: 300,
+                    child: Expanded(
+                      child: ReadMoreCard(
+                          description:
+                              '1. Decentralization: Cryptocurrencies are not controlled by any central authority, making them more democratic and secure.\n2. Security: Transactions are secured through encryption and other security measures, making it difficult to hack or manipulate the system\n3. No borders: Cryptocurrencies can be used globally, without any restrictions or limitations based on geographical location.\n4. Transparency: Transactions made on a public blockchain are transparent and can be easily tracked, providing greater accountability.\n5. Innovation: Cryptocurrencies and blockchain technology are constantly evolving, creating new opportunities for innovation and growth..',
+                          icontype: Icons.question_mark_outlined,
+                          title: "Why Cryptocurrency?"),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+
+                // Padding(
+                //   padding: const EdgeInsets.all(40.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Card(
+                //         margin: const EdgeInsets.only(bottom: 100),
+                //         elevation: 10,
+                //         color: kSecondColor,
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(20)),
+                //         child: Image.asset(
+                //           'assets/images/men.png',
+                //           width: MediaQuery.of(context).size.width * 0.30,
+                //           height: MediaQuery.of(context).size.height * 0.3,
+                //         ),
+                //       ),
+                //       const SizedBox(
+                //         width: 20,
+                //       ),
+                //       Card(
+                //         margin: const EdgeInsets.only(top: 100),
+                //         elevation: 10,
+                //         color: kSecondColor,
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(20)),
+                //         child: Image.asset(
+                //           'assets/images/men.png',
+                //           width: MediaQuery.of(context).size.width * 0.30,
+                //           height: MediaQuery.of(context).size.height * 0.3,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
+          ),
           // // our services section..
           Container(
             color: kSecondColor,

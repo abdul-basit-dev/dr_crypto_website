@@ -42,12 +42,14 @@ class CardsWidget extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              Text(
-                discription!,
-                style: const TextStyle(
-                    fontSize: 18,
-                    color: kSecondColor,
-                    fontWeight: FontWeight.w500),
+              Expanded(
+                child: Text(
+                  discription!,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      color: kSecondColor,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
             ],
           ),
