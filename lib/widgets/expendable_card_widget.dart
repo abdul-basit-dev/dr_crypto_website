@@ -59,38 +59,34 @@ class _ReadMoreCardState extends State<ReadMoreCard> {
                     _isExpanded = !_isExpanded;
                   });
                 },
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: Expanded(
-                          child: Text(
-                            widget.description,
-                            maxLines: _isExpanded ? null : 3,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: kSecondColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: Text(
+                        widget.description,
+                        maxLines: _isExpanded ? null : 3,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: kSecondColor,
+                            fontWeight: FontWeight.w500),
                       ),
-                      if (!_isExpanded)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                    ),
+                    if (!_isExpanded)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
 
-                          // padding: const EdgeInsets.only(
-                          //     left: 200.0, right: 10, top: 10, bottom: 10),
-                         Text(
-                            'Read more',
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                          ]
+                        // padding: const EdgeInsets.only(
+                        //     left: 200.0, right: 10, top: 10, bottom: 10),
+                       Text(
+                          'Read more',
+                          style: TextStyle(color: Colors.blue),
                         ),
-                    ],
-                  ),
+                        ]
+                      ),
+                  ],
                 ),
               )
             ],

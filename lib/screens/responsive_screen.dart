@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/card_widget.dart';
 import '../widgets/heading_widget.dart';
-import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 
 class LargeChild extends StatelessWidget {
   const LargeChild({super.key});
@@ -60,11 +59,9 @@ class LargeChild extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Image.asset(
-                  'assets/images/hand.png',
-                  alignment: Alignment.bottomRight,
-                ),
+              Image.asset(
+                'assets/images/hand.png',
+                alignment: Alignment.bottomRight,
               ),
             ],
           ),
@@ -221,36 +218,28 @@ class LargeChild extends StatelessWidget {
                             title: "Who are we"),
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     //  const Spacer(),
                     Expanded(
                       child: Container(
                         width: 360,
-                        child: Expanded(
-                          child: ReadMoreCard(
-                              description:
-                                  '1).Free Consultancy:\nWe help first-time investors with expert guidance on the basics and importance of crypto currency investments as an asset class through video communication services.\n2:Advisory Plans: \nSelect our advisory plans, which are based on fundamental analysis of the cryptocurrency market and specific projects by our experienced analysts. We identify investment opportunities with a profit potential ranging from 100 to 1000%, and help simplify tax calculations thereafter. To avail this service, individuals can download our Android application from Google Play.\n3:Training and education:\nOur practical process provides individuals with the opportunity to gain in-depth knowledge and expertise in the dynamic world of cryptocurrency. We provide exclusive and updated news, breaking it down in such a way that even a layman can understand it.',
-                              icontype: Icons.workspace_premium_sharp,
-                              title: "What we do"),
-                        ),
+                        child: ReadMoreCard(
+                            description:
+                                '1).Free Consultancy:\nWe help first-time investors with expert guidance on the basics and importance of crypto currency investments as an asset class through video communication services.\n2:Advisory Plans: \nSelect our advisory plans, which are based on fundamental analysis of the cryptocurrency market and specific projects by our experienced analysts. We identify investment opportunities with a profit potential ranging from 100 to 1000%, and help simplify tax calculations thereafter. To avail this service, individuals can download our Android application from Google Play.\n3:Training and education:\nOur practical process provides individuals with the opportunity to gain in-depth knowledge and expertise in the dynamic world of cryptocurrency. We provide exclusive and updated news, breaking it down in such a way that even a layman can understand it.',
+                            icontype: Icons.workspace_premium_sharp,
+                            title: "What we do"),
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     //  const Spacer(),
                     Expanded(
                       child: Container(
                         width: 350,
-                        child: Expanded(
-                          child: ReadMoreCard(
-                              description:
-                                  '1. Decentralization: Cryptocurrencies are not controlled by any central authority, making them more democratic and secure.\n2. Security: Transactions are secured through encryption and other security measures, making it difficult to hack or manipulate the system\n3. No borders: Cryptocurrencies can be used globally, without any restrictions or limitations based on geographical location.\n4. Transparency: Transactions made on a public blockchain are transparent and can be easily tracked, providing greater accountability.\n5. Innovation: Cryptocurrencies and blockchain technology are constantly evolving, creating new opportunities for innovation and growth..',
-                              icontype: Icons.question_mark_outlined,
-                              title: "Why Cryptocurrency?"),
-                        ),
+                        child: ReadMoreCard(
+                            description:
+                                '1. Decentralization: Cryptocurrencies are not controlled by any central authority, making them more democratic and secure.\n2. Security: Transactions are secured through encryption and other security measures, making it difficult to hack or manipulate the system\n3. No borders: Cryptocurrencies can be used globally, without any restrictions or limitations based on geographical location.\n4. Transparency: Transactions made on a public blockchain are transparent and can be easily tracked, providing greater accountability.\n5. Innovation: Cryptocurrencies and blockchain technology are constantly evolving, creating new opportunities for innovation and growth..',
+                            icontype: Icons.question_mark_outlined,
+                            title: "Why Cryptocurrency?"),
                       ),
                     ),
                     // const Spacer(),
@@ -261,7 +250,7 @@ class LargeChild extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         //third page...
@@ -379,7 +368,7 @@ class LargeChild extends StatelessWidget {
                         color: kPrimaryColor,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     const Text(
@@ -392,7 +381,7 @@ class LargeChild extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Padding(
@@ -411,7 +400,7 @@ class LargeChild extends StatelessWidget {
                             shape: const StadiumBorder(),
                             elevation: 2,
                           ),
-                          label: Text("Play Store",
+                          label: const Text("Play Store",
                               style: TextStyle(
                                   color: kSecondColor,
                                   fontSize: 16,
@@ -436,7 +425,7 @@ class LargeChild extends StatelessWidget {
                             shape: const StadiumBorder(),
                             elevation: 2,
                           ),
-                          label: Text(
+                          label: const Text(
                             "App Store",
                             style: TextStyle(
                                 color: kSecondColor,
@@ -473,7 +462,7 @@ class LargeChild extends StatelessWidget {
           ),
         ),
         //end of domload container
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -562,9 +551,9 @@ class LargeChild extends StatelessWidget {
                       color: kPrimaryColor,
                       fontsize: 20,
                     ),
-                    InkWell(
+                    const InkWell(
                       // onTap:()=>launchUrl(""),
-                      child: const Text(
+                      child: Text(
                         'doctorcrypto94@gmail.com',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
@@ -577,7 +566,7 @@ class LargeChild extends StatelessWidget {
                     HeadingWidget(
                       textHeading: '(+91)9967406320',
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Row(
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -585,7 +574,7 @@ class LargeChild extends StatelessWidget {
                           onTap: () {
                             Navigator.pushNamed(context, '/privacy_policy');
                           },
-                          child: Text(
+                          child: const Text(
                             'Privacy Policy',
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
@@ -594,14 +583,14 @@ class LargeChild extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                             width: 30), // Add some spacing between the texts
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
                                 context, '/terms_and_conditions');
                           },
-                          child: Text(
+                          child: const Text(
                             'Terms & Condition',
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
@@ -710,39 +699,33 @@ class SmallChild extends StatelessWidget {
                   child: Container(
                     width: 300,
                     // height: 300,
-                    child: Expanded(
-                      child: ReadMoreCard(
-                          description:
-                              'Dr. Crypto is a cryptocurrency advisory platform that provides end-to-end solutions, from investment to liquidation, for a minimal fee. Initially, we started off by providing services to our personal contacts through WhatsApp. After receiving a great response from our clients, we are now looking to \nexpand with the vision of creating wealth for as many people as possible.\nKey Performance Indicators (KPIs)\n60+ Clients \n4 Countries covered',
-                          icontype: Icons.groups_outlined,
-                          title: "Who are we"),
-                    ),
+                    child: ReadMoreCard(
+                        description:
+                            'Dr. Crypto is a cryptocurrency advisory platform that provides end-to-end solutions, from investment to liquidation, for a minimal fee. Initially, we started off by providing services to our personal contacts through WhatsApp. After receiving a great response from our clients, we are now looking to \nexpand with the vision of creating wealth for as many people as possible.\nKey Performance Indicators (KPIs)\n60+ Clients \n4 Countries covered',
+                        icontype: Icons.groups_outlined,
+                        title: "Who are we"),
                   ),
                 ),
                 //const Spacer(),
                 Center(
                   child: Container(
                     width: 300,
-                    child: Expanded(
-                      child: ReadMoreCard(
-                          description:
-                              '1).Free Consultancy:\nWe help first-time investors with expert guidance on the basics and importance of crypto currency investments as an asset class through video communication services.\n2:Advisory Plans: \nSelect our advisory plans, which are based on fundamental analysis of the cryptocurrency market and specific projects by our experienced analysts. We identify investment opportunities with a profit potential ranging from 100 to 1000%, and help simplify tax calculations thereafter. To avail this service, individuals can download our Android application from Google Play.\n3:Training and education:\nOur practical process provides individuals with the opportunity to gain in-depth knowledge and expertise in the dynamic world of cryptocurrency. We provide exclusive and updated news, breaking it down in such a way that even a layman can understand it.',
-                          icontype: Icons.workspace_premium_sharp,
-                          title: "What we do"),
-                    ),
+                    child: ReadMoreCard(
+                        description:
+                            '1).Free Consultancy:\nWe help first-time investors with expert guidance on the basics and importance of crypto currency investments as an asset class through video communication services.\n2:Advisory Plans: \nSelect our advisory plans, which are based on fundamental analysis of the cryptocurrency market and specific projects by our experienced analysts. We identify investment opportunities with a profit potential ranging from 100 to 1000%, and help simplify tax calculations thereafter. To avail this service, individuals can download our Android application from Google Play.\n3:Training and education:\nOur practical process provides individuals with the opportunity to gain in-depth knowledge and expertise in the dynamic world of cryptocurrency. We provide exclusive and updated news, breaking it down in such a way that even a layman can understand it.',
+                        icontype: Icons.workspace_premium_sharp,
+                        title: "What we do"),
                   ),
                 ),
                 //  const Spacer(),
                 Center(
                   child: Container(
                     width: 300,
-                    child: Expanded(
-                      child: ReadMoreCard(
-                          description:
-                              '1. Decentralization: Cryptocurrencies are not controlled by any central authority, making them more democratic and secure.\n2. Security: Transactions are secured through encryption and other security measures, making it difficult to hack or manipulate the system\n3. No borders: Cryptocurrencies can be used globally, without any restrictions or limitations based on geographical location.\n4. Transparency: Transactions made on a public blockchain are transparent and can be easily tracked, providing greater accountability.\n5. Innovation: Cryptocurrencies and blockchain technology are constantly evolving, creating new opportunities for innovation and growth..',
-                          icontype: Icons.question_mark_outlined,
-                          title: "Why Cryptocurrency?"),
-                    ),
+                    child: ReadMoreCard(
+                        description:
+                            '1. Decentralization: Cryptocurrencies are not controlled by any central authority, making them more democratic and secure.\n2. Security: Transactions are secured through encryption and other security measures, making it difficult to hack or manipulate the system\n3. No borders: Cryptocurrencies can be used globally, without any restrictions or limitations based on geographical location.\n4. Transparency: Transactions made on a public blockchain are transparent and can be easily tracked, providing greater accountability.\n5. Innovation: Cryptocurrencies and blockchain technology are constantly evolving, creating new opportunities for innovation and growth..',
+                        icontype: Icons.question_mark_outlined,
+                        title: "Why Cryptocurrency?"),
                   ),
                 ),
                 const Spacer(),
@@ -906,7 +889,7 @@ class SmallChild extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       const Text(
@@ -919,7 +902,7 @@ class SmallChild extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Padding(
@@ -938,7 +921,7 @@ class SmallChild extends StatelessWidget {
                               shape: const StadiumBorder(),
                               elevation: 2,
                             ),
-                            label: Text("Play Store",
+                            label: const Text("Play Store",
                                 style: TextStyle(
                                     color: kSecondColor,
                                     fontSize: 16,
@@ -963,7 +946,7 @@ class SmallChild extends StatelessWidget {
                               shape: const StadiumBorder(),
                               elevation: 2,
                             ),
-                            label: Text(
+                            label: const Text(
                               "App Store",
                               style: TextStyle(
                                   color: kSecondColor,
@@ -1025,7 +1008,7 @@ class SmallChild extends StatelessWidget {
                       fontsize: 16,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   // Padding(
@@ -1088,7 +1071,7 @@ class SmallChild extends StatelessWidget {
                       fontsize: 16,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Row(
@@ -1098,7 +1081,7 @@ class SmallChild extends StatelessWidget {
                         onTap: () {
                           Navigator.pushNamed(context, '/privacy');
                         },
-                        child: Text(
+                        child: const Text(
                           'Privacy Policy',
                           style: TextStyle(
                               decoration: TextDecoration.underline,
@@ -1107,14 +1090,14 @@ class SmallChild extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ), // Add some spacing between the texts
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, '/terms');
                         },
-                        child: Text(
+                        child: const Text(
                           'Terms & Condition',
                           style: TextStyle(
                               decoration: TextDecoration.underline,
