@@ -1,9 +1,12 @@
 import 'package:adaptive_navbar/adaptive_navbar.dart';
-import 'package:dr_crypto_website/constant.dart';
-import 'package:dr_crypto_website/screens/responsive_screen.dart';
-import 'package:dr_crypto_website/utils/responsive_layout.dart';
+import 'package:dr_crypto/constant.dart';
+
+import 'package:dr_crypto/utils/responsive_layout.dart';
 
 import 'package:flutter/material.dart';
+
+import 'components/large_screen.dart';
+import 'components/small_screen.dart';
 
 class Dashboard extends StatelessWidget {
   static String routeName = "/";

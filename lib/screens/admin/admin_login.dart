@@ -1,6 +1,7 @@
-import 'package:dr_crypto_website/screens/admin/admin_panel.dart';
-import 'package:dr_crypto_website/utils/responsive_layout.dart';
-import 'package:dr_crypto_website/widgets/default_button.dart';
+import 'package:dr_crypto/screens/admin/admin_panel.dart';
+import 'package:dr_crypto/screens/admin/tab_admin.dart';
+import 'package:dr_crypto/utils/responsive_layout.dart';
+import 'package:dr_crypto/widgets/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -78,7 +79,7 @@ class _AdminLoginState extends State<AdminLogin> {
           child: Wrap(
             // height: 72,
             children: [
-              Container(
+              SizedBox(
                 width: ResponsiveLayout.isSmallScreen(context)
                     ? MediaQuery.of(context).size.width / 2
                     : MediaQuery.of(context).size.width / 3,
@@ -180,7 +181,7 @@ class _AdminLoginState extends State<AdminLogin> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AdminPanel(),
+          builder: (context) => const MyTabBar(),
         ));
   }
 

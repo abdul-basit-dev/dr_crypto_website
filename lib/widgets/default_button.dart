@@ -1,4 +1,4 @@
-import 'package:dr_crypto_website/constant.dart';
+import 'package:dr_crypto/constant.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -28,7 +28,7 @@ class DefaultButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
           ),

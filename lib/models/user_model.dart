@@ -10,7 +10,7 @@ class UserModel {
   late String _photoUrl;
   late String _status;
   late String _token;
-  
+  late String _screentshotUrl;
 
   //constructor for add
   UserModel(
@@ -22,22 +22,21 @@ class UserModel {
     this._photoUrl,
     this._status,
     this._token,
-   
+    this._screentshotUrl,
   );
 
   //Constructor for edit
   UserModel.withId(
-    this._id,
-    this._userName,
-    this._password,
-    this._phone,
-    this._email,
-    this._address,
-    this._photoUrl,
-    this._status,
-    this._token,
-   
-  );
+      this._id,
+      this._userName,
+      this._password,
+      this._phone,
+      this._email,
+      this._address,
+      this._photoUrl,
+      this._status,
+      this._token,
+      this._screentshotUrl);
   //Constructor for edit without password
   UserModel.editwithId(
     this._id,
@@ -48,7 +47,7 @@ class UserModel {
     this._photoUrl,
     this._status,
     this._token,
-  
+    this._screentshotUrl,
   );
 
   //getters
@@ -61,7 +60,7 @@ class UserModel {
   String get photoUrl => _photoUrl;
   String get status => _status;
   String get token => _token;
-  
+  String get screentshotUrl => _screentshotUrl;
 
   //Setters
   set setFirstName(String firstName) {
@@ -108,7 +107,7 @@ class UserModel {
     _photoUrl = (snapshot.value as dynamic)["photoUrl"];
     _status = (snapshot.value as dynamic)["status"];
     _token = (snapshot.value as dynamic)["token"];
- 
+    _screentshotUrl = (snapshot.value as dynamic)["screentshotUrl"];
   }
 
 //Converting class object to JSON
@@ -119,11 +118,10 @@ class UserModel {
       "password": _password,
       "phone": _phone,
       "email": _email,
-   
       "photoUrl": _photoUrl,
       "status": _status,
       "token": _token,
-     
+      "screentshotUrl": _screentshotUrl,
     };
   }
 }

@@ -1,4 +1,4 @@
-import 'package:dr_crypto_website/models/price_model.dart';
+import 'package:dr_crypto/models/price_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';

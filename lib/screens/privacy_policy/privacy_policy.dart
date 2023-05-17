@@ -1,4 +1,4 @@
-import 'package:dr_crypto_website/constant.dart';
+import 'package:dr_crypto/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -13,10 +13,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Privacy Policy"),
-        backgroundColor: kPrimaryColor,
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Privacy Policy"),
+      //   backgroundColor: kPrimaryColor,
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: SingleChildScrollView(child: html),

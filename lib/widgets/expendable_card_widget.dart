@@ -1,4 +1,4 @@
-import 'package:dr_crypto_website/constant.dart';
+import 'package:dr_crypto/constant.dart';
 import 'package:flutter/material.dart';
 
 class ReadMoreCard extends StatefulWidget {
@@ -67,7 +67,7 @@ class _ReadMoreCardState extends State<ReadMoreCard> {
                         widget.description,
                         maxLines: _isExpanded ? null : 3,
                         overflow: TextOverflow.clip,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             color: kSecondColor,
                             fontWeight: FontWeight.w500),
@@ -76,7 +76,7 @@ class _ReadMoreCardState extends State<ReadMoreCard> {
                     if (!_isExpanded)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
+                        children: const [
 
                         // padding: const EdgeInsets.only(
                         //     left: 200.0, right: 10, top: 10, bottom: 10),
