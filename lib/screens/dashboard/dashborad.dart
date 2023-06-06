@@ -11,7 +11,7 @@ import 'components/small_screen.dart';
 class Dashboard extends StatelessWidget {
   static String routeName = "/";
   Dashboard({Key? key}) : super(key: key);
-  ScrollController scrollcontrol = ScrollController();
+ final ScrollController scrollcontrol = ScrollController();
   @override
   Widget build(BuildContext context) {
     final sw = MediaQuery.of(context).size.width;
@@ -93,8 +93,8 @@ class Dashboard extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           controller: scrollcontrol,
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               //  NavBar(),
               Body(),
             ],

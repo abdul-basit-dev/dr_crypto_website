@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class ReadMoreCard extends StatefulWidget {
   final String title;
   final String description;
-  IconData icontype;
+  final IconData icontype;
 
   ReadMoreCard(
-      {required this.title,
+      {super.key, required this.title,
       required this.description,
       required this.icontype}) {
     // TODO: implement ReadMoreCard
@@ -74,9 +74,9 @@ class _ReadMoreCardState extends State<ReadMoreCard> {
                       ),
                     ),
                     if (!_isExpanded)
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
+                        children: [
 
                         // padding: const EdgeInsets.only(
                         //     left: 200.0, right: 10, top: 10, bottom: 10),

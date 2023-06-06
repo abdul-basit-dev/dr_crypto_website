@@ -1,6 +1,8 @@
-import 'package:dr_crypto/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+import 'package:url_launcher/url_launcher.dart';
+
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({super.key});
@@ -23,9 +25,13 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
       ),
     );
   }
+
+ 
 }
 
 Widget html = Html(
+ 
+ 
   data: """<!DOCTYPE html>
 <html>
 
@@ -97,6 +103,10 @@ Widget html = Html(
     </li>
 </ul>
 <h1>Collecting and Using Your Personal Data</h1>
+<h2>Disclosure of Google APIs</h2>
+<h1>Disclosure</h1>
+<p>DrCrypto's use and transfer to any other app of information received from Google APIs will adhere to <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
 <h2>Types of Data Collected</h2>
 <h3>Personal Data</h3>
 <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be
@@ -286,10 +296,20 @@ Widget html = Html(
     effective when they are posted on this page.</p>
 <h1>Contact Us</h1>
 <p>If you have any questions about this Privacy Policy, You can contact us:</p>
+
 <ul>
     <li>By email: doctorcrypto94@gmail.com</li>
 </ul>
 </body>
 
 </html>""",
+onLinkTap: (url, attributes, element) {
+  mlaunchUrl(url!);
+},
 );
+
+ Future<void> mlaunchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
+  }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HeadingWidget extends StatelessWidget {
-  String? textHeading;
-  Color? color;
-  double? fontsize;
-  HeadingWidget({
+  final  String? textHeading;
+ final Color? color;
+ final double? fontsize;
+ const HeadingWidget({
     this.textHeading,
     this.color,
     this.fontsize,

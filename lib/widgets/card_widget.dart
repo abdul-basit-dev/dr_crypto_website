@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../constant.dart';
 
 class CardsWidget extends StatelessWidget {
-  String? textHeading;
-  String? discription;
-  IconData? icontype;
-  CardsWidget({
+ final  String? textHeading;
+ final  String? discription;
+ final IconData? icontype;
+ const  CardsWidget({
     this.textHeading,
     this.discription,
     this.icontype,

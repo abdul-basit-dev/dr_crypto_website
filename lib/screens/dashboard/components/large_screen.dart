@@ -89,7 +89,7 @@ class LargeChild extends StatelessWidget {
                   children: [
                     // const Spacer(),
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         width: 350,
                         // height: 300,
                         child: ReadMoreCard(
@@ -102,7 +102,7 @@ class LargeChild extends StatelessWidget {
                     const SizedBox(width: 10),
                     //  const Spacer(),
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         width: 360,
                         child: ReadMoreCard(
                             description:
@@ -114,7 +114,7 @@ class LargeChild extends StatelessWidget {
                     const SizedBox(width: 10),
                     //  const Spacer(),
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         width: 350,
                         child: ReadMoreCard(
                             description:

@@ -1,4 +1,3 @@
-import 'package:dr_crypto/screens/dashboard/dashborad.dart';
 import 'package:flutter/material.dart';
 
 class FullPageImage extends StatefulWidget {
@@ -16,7 +15,7 @@ class _FullPageImageState extends State<FullPageImage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: 600,
         child:

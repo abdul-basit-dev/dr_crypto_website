@@ -1,4 +1,3 @@
-import 'package:dr_crypto/screens/admin/admin_panel.dart';
 import 'package:dr_crypto/screens/admin/tab_admin.dart';
 import 'package:dr_crypto/utils/responsive_layout.dart';
 import 'package:dr_crypto/widgets/default_button.dart';
@@ -145,15 +144,13 @@ class _AdminLoginState extends State<AdminLogin> {
       user1 = userCredential.user;
       print(user1!.email);
 
-      if (user1 != null) {
-        uid = user1.uid;
-        userEmail = user1.email;
+      uid = user1.uid;
+      userEmail = user1.email;
 
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('auth', true);
-        //await _auth.setPersistence(Persistence.LOCAL);
-        gotoAdminDashboard();
-      }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('auth', true);
+      //await _auth.setPersistence(Persistence.LOCAL);
+      gotoAdminDashboard();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -193,7 +190,6 @@ class _AdminLoginState extends State<AdminLogin> {
       onSaved: (newValue) => password = newValue,
       validator: (value) {
         if (value!.isEmpty) {
-          ;
           return kPassNullError;
         }
         return null;

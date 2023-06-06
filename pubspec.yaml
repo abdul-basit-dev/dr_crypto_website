@@ -49,6 +49,7 @@ dependencies:
   url_launcher: ^6.1.10
   flutter_html: ^3.0.0-alpha.6
   flutter_expandable_text: ^1.0.0
+  
 
 
 
@@ -57,7 +58,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     
-  flutter_launcher_icons: "^0.12.0"
+  flutter_launcher_icons: "^0.13.0"
   flutter_lints: ^2.0.1
 
 flutter_icons:

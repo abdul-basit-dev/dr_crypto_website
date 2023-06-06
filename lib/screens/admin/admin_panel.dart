@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:dr_crypto/constant.dart';
-import 'package:dr_crypto/models/price_model.dart';
+
 import 'package:dr_crypto/models/user_model.dart';
+import 'package:dr_crypto/screens/admin/edit_user_screen.dart';
 
 import 'package:dr_crypto/widgets/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,9 +11,6 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:overlay_support/overlay_support.dart';
-
-import 'package:intl/intl.dart' as intl;
 
 import '../../utils/storage.dart';
 
@@ -31,262 +28,26 @@ class _AdminPanelState extends State<AdminPanel> {
   Storage storage = Storage();
   final DatabaseReference _databaseReference =
       FirebaseDatabase.instance.ref().child('Users');
-  final DatabaseReference _priceReference =
-      FirebaseDatabase.instance.ref().child('Price');
+
   var isLoading = false;
   var isLoadingPrice = false;
-  bool _isLoading = true;
-
   var userData = [];
   List<UserModel> userModel = [];
-  //price from db
-  var priceData = [];
-  List<PriceModel> priceModel = <PriceModel>[];
-//API
-  var coinLists;
-  var _listCoin = [];
-  // final formatter = intl.NumberFormat.decimalPattern();
-  final formatter = intl.NumberFormat("#,##0.0######"); // for price change
-  final percentageFormat = intl.NumberFormat("##0.0#"); // for price change
-  Timer? _timer;
-  int _itemPerPage = 1, _currentMax = 5;
-
-  final ScrollController _scrollController = ScrollController();
-
   int tableIndex = 0;
-
-  getCoinList() async {
-    Dio dio = Dio();
-    Response response;
-    try {
-      response = await dio.get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=$_itemPerPage&sparkline=false");
-      //  print("Response data : ${response.data}");
-      // _listCoin = _response.data;
-      if (_listCoin == null) {
-        _listCoin = List.generate(
-          5,
-          (i) => response.data[i],
-        );
-      } else {
-        int j = 0;
-        for (int i = _currentMax; i < _currentMax + 5; i++) {
-          _listCoin.add(response.data[j]);
-
-          j++;
-        }
-      }
-      print(_listCoin);
-      print("Success");
-      // updatePrice();
-      _isLoading = false;
-
-      setState(() {});
-    } on DioError catch (e) {
-      String errorMessage = e.response!.data.toString();
-      print("Error message : $errorMessage");
-      showSimpleNotification(
-        Text("Error message : $errorMessage"),
-        background: Colors.red,
-        autoDismiss: true,
-        position: NotificationPosition.bottom,
-      );
-      switch (e.type) {
-        case DioErrorType.connectTimeout:
-          break;
-        case DioErrorType.sendTimeout:
-          break;
-        case DioErrorType.receiveTimeout:
-          break;
-        case DioErrorType.response:
-          errorMessage = e.response!.data["error"];
-          break;
-        case DioErrorType.cancel:
-          break;
-        case DioErrorType.other:
-          break;
-      }
-      _isLoading = false;
-      setState(() {});
-    }
-  }
-
-  _getMoreData() {
-    print("Load more data");
-    _itemPerPage = _itemPerPage + 1;
-    _currentMax = _currentMax + 10;
-    getCoinList();
-  }
-
-//field for dialog
-
-  String? valueText;
-  final TextEditingController _textFieldController = TextEditingController();
-  Future<void> _displayTextInputDialog(BuildContext context, String uid,
-      String pairVolDB, String price, String pairId) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Enter Buying Price'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    const Text("PAIR / VOL"),
-                    Text(pairVolDB),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                TextField(
-                  onChanged: (value) {
-                    valueText = value;
-                  },
-                  controller: _textFieldController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Buy Price"),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                ),
-                child: const Text(
-                  'CANCEL',
-                  style: TextStyle(color: kSecondColor),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: kPrimaryColor),
-                child: const Text(
-                  'OK',
-                  style: TextStyle(color: kSecondColor),
-                ),
-                onPressed: () {
-                  price = _textFieldController.text;
-                  if (_textFieldController.text.isNotEmpty) {
-                    updatePrice(uid, pairVolDB, pairId, price);
-                    _textFieldController.text = '';
-                  } else {
-                    showSimpleNotification(
-                      const Text("Please enter price"),
-                      background: Colors.red,
-                      autoDismiss: true,
-                      position: NotificationPosition.bottom,
-                    );
-                  }
-                },
-              ),
-            ],
-          );
-        });
-  }
-
-  // String idGenerator() {
-  //   final now = DateTime.now();
-  //   return now.microsecondsSinceEpoch.toString();
-  // }
-
-  Future<void> updatePrice(
-      String uid, String pairName, String pairId, buyPrice) async {
-    // buyPrice = codeDialog!;
-    PriceModel priceModel = PriceModel.withId(
-      pairId,
-      pairName,
-      buyPrice,
-    );
-    if (user != null) {
-      await storage
-          .storePriceData(
-        priceModel,
-        uid,
-        pairId,
-      )
-          .then((value) {
-        //  Navigator.pop(context);
-      });
-    } else {
-      showSimpleNotification(
-        const Text("Error. Try saving again"),
-        background: Colors.red,
-        autoDismiss: true,
-        position: NotificationPosition.bottom,
-      );
-    }
-  }
-
-// Function to calculate Profit.
-  double profit(double cp, bp) {
-    double profit = bp - cp;
-    return profit;
-  }
-
-  // Function to calculate Loss.
-  double loss(double cp, bp) {
-    double loss = cp - bp;
-    return loss;
-  }
 
   @override
   void initState() {
     super.initState();
     //priceData.clear();
     user = _auth.currentUser;
-    if (user != null) {
-      getCurrentUser();
-      //GETTING COINS
-      _scrollController.addListener(() {
-        if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent) {
-          _getMoreData();
-        }
-      });
-      getCoinList();
-    } else {
-      print('No User Found');
-    }
+
+    getCurrentUser();
   }
 
   @override
   Widget build(BuildContext context) {
-    final sw = MediaQuery.of(context).size.width;
     return Scaffold(
-      // backgroundColor: kPrimaryColor,
-      // appBar: AdaptiveNavBar(
-      //   elevation: 0.0,
-      //   toolbarHeight: 150,
-      //   automaticallyImplyLeading: false,
-      //   backgroundColor: kPrimaryColor,
-      //   screenWidth: sw,
-      //   centerTitle: false,
-      //   title: ResponsiveLayout.isSmallScreen(context)
-      //       ? Image.asset(
-      //           'assets/images/dclogo.png',
-      //           width: 120,
-      //           height: 120,
-      //           isAntiAlias: true,
-      //           fit: BoxFit.fill,
-      //         )
-      //       : Image.asset(
-      //           'assets/images/dclogo.png',
-      //           width: 250,
-      //           height: 250,
-      //           isAntiAlias: true,
-      //           fit: BoxFit.cover,
-      //         ),
-      //   navBarItems: const <NavBarItem>[],
-      // ),
-
-      body: _isLoading == true
+      body: isLoading == false
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16),
@@ -299,91 +60,17 @@ class _AdminPanelState extends State<AdminPanel> {
                 showCheckboxColumn: true,
 
                 //minWidth: 600,
-                columns: [
-                  const DataColumn2(
+                columns: const [
+                  DataColumn2(
                     label: Text('Id'),
                     size: ColumnSize.S,
                     // fixedWidth: 24.0,
                   ),
-                  const DataColumn2(
+                  DataColumn2(
                     label: Text('Username / Email'),
                     size: ColumnSize.L,
                   ),
                   DataColumn2(
-                    size: ColumnSize.L,
-                    //onSort: (columnIndex, ascending) {},
-                    label: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('Pair / Vol' + tableIndex.toString()),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                             onTap: tableIndex == 0
-    ? null // Disable the onTap behavior if tableIndex is 0
-    : () {
-        priceData.clear();
-        setState(() {
-          tableIndex--;
-          for (int i = 0; i < userModel.length; i++) {
-            getCurrentUserPrice(
-              userModel[i].id!,
-              "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD",
-            );
-          }
-        });
-      },
-
-                              child: const Icon(
-                                Icons.arrow_left_rounded,
-                                color: kSecondColor,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  priceData.clear();
-
-                                  try {
-                                    tableIndex++;
-                                    if (tableIndex == _listCoin.length) {
-                                      tableIndex = 0;
-                                    }
-
-                                    for (int i = 0; i < userModel.length; i++) {
-                                      getCurrentUserPrice(userModel[i].id!,
-                                          "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD");
-                                    }
-                                  } on Exception catch (_, exception) {
-                                    exception.toString();
-                                  }
-                                });
-                              },
-                              child: const Icon(
-                                Icons.arrow_right_rounded,
-                                color: kSecondColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const DataColumn2(
-                    size: ColumnSize.M,
-                    label: Text('Buy Price'),
-                  ),
-                  const DataColumn2(
-                    size: ColumnSize.M,
-                    label: Text('Current Price'),
-                  ),
-                  const DataColumn2(
-                    size: ColumnSize.M,
-                    label: Text('Profit / Loss'),
-                  ),
-                  const DataColumn2(
                     size: ColumnSize.M,
                     label: Text('Modify'),
                   ),
@@ -396,249 +83,7 @@ class _AdminPanelState extends State<AdminPanel> {
                       DataCell(Text("${index + 1}")),
                       //email
                       DataCell(Text(userModel[index].email)),
-                      //pair-vol
-                      DataCell(
-                        Container(
-                          // height: 50,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 10),
-                          // margin: EdgeInsets.symmetric(vertical: 5),
-                          decoration:
-                              const BoxDecoration(color: Colors.white24),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(width: 5),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD",
-                                  ),
-                                  //Volume
-                                  Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      "Vol: \$ ${_listCoin[tableIndex]['total_volume']}",
-                                      style: const TextStyle(
-                                          fontSize: 10, color: kPrimaryColor),
-                                    ),
-                                  ),
-                                  // (_listCoin[tableIndex]['price_change_24h'] >
-                                  //         0)
-                                  //     ? Row(
-                                  //         mainAxisAlignment:
-                                  //             MainAxisAlignment.start,
-                                  //         children: [
-                                  //           Icon(Icons.arrow_drop_up_sharp,
-                                  //               color: Colors.green[600]),
-                                  //           Text(
-                                  //             // "${_listCoin[i]['price_change_24h']}",
-                                  //             (_listCoin[tableIndex]
-                                  //                         ['current_price'] <
-                                  //                     2)
-                                  //                 ? formatter.format(
-                                  //                     _listCoin[tableIndex]
-                                  //                         ['price_change_24h'])
-                                  //                 : percentageFormat.format(
-                                  //                     _listCoin[tableIndex]
-                                  //                         ['price_change_24h']),
-                                  //             style: const TextStyle(
-                                  //                 color: Colors.green,
-                                  //                 fontSize: 11),
-                                  //           ),
-                                  //           Text(
-                                  //             " (${percentageFormat.format(_listCoin[tableIndex]['price_change_percentage_24h'])}%)",
-                                  //             style: const TextStyle(
-                                  //                 color: Colors.green,
-                                  //                 fontSize: 11),
-                                  //           ),
-                                  //         ],
-                                  //       )
-                                  //     : Row(
-                                  //         mainAxisAlignment:
-                                  //             MainAxisAlignment.start,
-                                  //         children: [
-                                  //           const Icon(
-                                  //               Icons.arrow_drop_down_sharp,
-                                  //               color: Colors.red),
-                                  //           Text(
-                                  //             // "${_listCoin[i]['price_change_24h']}",
-                                  //             (_listCoin[tableIndex]
-                                  //                         ['current_price'] <
-                                  //                     2)
-                                  //                 ? formatter.format(
-                                  //                     _listCoin[tableIndex]
-                                  //                         ['price_change_24h'])
-                                  //                 : percentageFormat.format(
-                                  //                     _listCoin[tableIndex]
-                                  //                         ['price_change_24h']),
-                                  //             style: const TextStyle(
-                                  //                 color: Colors.red,
-                                  //                 fontSize: 10.5),
-                                  //           ),
-                                  //           Text(
-                                  //             " (${percentageFormat.format(_listCoin[tableIndex]['price_change_percentage_24h'])}%)",
-                                  //             style: const TextStyle(
-                                  //                 color: Colors.red,
-                                  //                 fontSize: 11),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                ],
-                              ),
-                              //  Spacer(),
-                            ],
-                          ),
-                        ),
-                      ),
-                      //TODO:Buy Price
-                      DataCell(
-                        isLoading == true && isLoadingPrice == true
-                            ? Text(
-                                "\$ ${priceData[index]['buyPrice']}",
-                              )
-                            : const Text('No Data'),
-                      ),
-                      //Current Price
-                      DataCell(
-                        SizedBox(
-                          width: 80,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  "\$ ${formatter.format(_listCoin[tableIndex]['current_price'])}",
-                                  style: const TextStyle(fontSize: 13.5),
-                                ),
-                              ),
-                              const SizedBox(height: 3),
-                              Row(
-                                children: [
-                                  const Text("High",
-                                      style: TextStyle(fontSize: 8)),
-                                  const Spacer(),
-                                  Text(
-                                    "\$${_listCoin[tableIndex]['high_24h']}",
-                                    style: const TextStyle(
-                                        fontSize: 9, color: Colors.green),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text("Low",
-                                      style: TextStyle(fontSize: 8)),
-                                  const Spacer(),
-                                  Text(
-                                    "\$${_listCoin[tableIndex]['low_24h']}",
-                                    style: const TextStyle(
-                                        fontSize: 9, color: Colors.red),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      //Profit Loss
-                      DataCell(
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 10),
-                          // margin: EdgeInsets.symmetric(vertical: 5),
-                          decoration:
-                              const BoxDecoration(color: Colors.white24),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (priceData[index]['buyPrice'] != '--')
-                               
-                                 if (_listCoin[0]['current_price'] >
-                                    double.parse(priceData[index]['buyPrice']))
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          "\$${loss(_listCoin[index]['current_price'], double.parse(priceData[index]['buyPrice'])).toStringAsFixed(2)}"),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.arrow_drop_up_rounded,
-                                              color: Colors.green[600]),
-                                          Text(
-                                            ((loss(
-                                                            _listCoin[index][
-                                                                'current_price'],
-                                                            double.parse(priceData[
-                                                                    index]
-                                                                ['buyPrice'])) /
-                                                        _listCoin[index]
-                                                            ['current_price']) *
-                                                    100)
-                                                .toStringAsFixed(2),
-                                            style: const TextStyle(
-                                                fontSize: 9, color: Colors.green),
-                                          ),
-                                          const Text(
-                                            " %",
-                                            style: TextStyle(
-                                                fontSize: 9, color: Colors.green),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )else  if (_listCoin[index]['current_price'] <
-                                    double.parse(priceData[index]['buyPrice']))
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          "\$${profit(_listCoin[index]['current_price'], double.parse(priceData[index]['buyPrice'])).toStringAsFixed(2)}"),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.arrow_drop_down_rounded,
-                                              color: Colors.red[600]),
-                                          Text(
-                                            ((profit(
-                                                            _listCoin[index][
-                                                                'current_price'],
-                                                            double.parse(priceData[
-                                                                    index]
-                                                                ['buyPrice'])) /
-                                                        _listCoin[index]
-                                                            ['current_price']) *
-                                                    100)
-                                                .toStringAsFixed(2),
-                                            style: const TextStyle(
-                                                fontSize: 9,
-                                                color: Colors.red),
-                                          ),
-                                          const Text(
-                                            " %",
-                                            style: TextStyle(
-                                                fontSize: 9,
-                                                color: Colors.red),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                            ],
-                          ),
-                        ),
-                      ),
+                      // //pair-vol
 
                       //Edit
                       DataCell(
@@ -646,25 +91,17 @@ class _AdminPanelState extends State<AdminPanel> {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: DefaultButton(
                             press: () {
-                              setState(() {
-                                _textFieldController.text =
-                                    "${priceData[index]['buyPrice']}";
-                                _displayTextInputDialog(
+                              Navigator.push(
                                   context,
-                                  userModel[index].id!,
-                                  "${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD",
-                                  "${priceData[index]['buyPrice']}",
-                                  "${priceData[index]['pairId']}",
-                                );
-                              });
-                              // showSimpleNotification(
-                              //     Text(
-                              //       "${userModel[index].id!}\n${_listCoin[tableIndex]['symbol'].toUpperCase()}/USD\n${priceData[index]['buyPrice']}\n${priceData[index]['pairId']}",
-                              //     ),
-                              //     background: Colors.green,
-                              //     autoDismiss: false,
-                              //     position: NotificationPosition.bottom,
-                              //     slideDismiss: true);
+                                  MaterialPageRoute(
+                                    builder: (context) => EditUserInfo(
+                                      userName: userData[index]['userName'],
+                                      userImage: userData[index]['photoUrl'],
+                                      status: userData[index]['status'],
+                                      email: userData[index]['email'],
+                                      id: userData[index]['id'],
+                                    ),
+                                  ));
                             },
                             text: 'Edit',
                           ),
@@ -695,23 +132,19 @@ class _AdminPanelState extends State<AdminPanel> {
         if (snapshot.exists && userData.isNotEmpty) {
           for (int x = 0; x < userData.length; x++) {
             String id = userData[x]['id'].toString();
-            String name = userData[x]['userName'];
-            String phone = userData[x]['phone'];
-            String email = userData[x]['email'];
+            String name = userData[x]['userName'] ?? '';
+            String phone = userData[x]['phone'] ?? '';
+            String email = userData[x]['email'] ?? '';
             //String address = userData[x]['address'];
-            String photoUrl = userData[x]['photoUrl'];
-            String status = userData[x]['status'];
-            String token = userData[x]['token'];
-            String screentshotUrl = userData[x]['screentshotUrl'];
+            String photoUrl = userData[x]['photoUrl'] ?? '';
+            String status = userData[x]['status'] ?? '';
+            String token = userData[x]['token'] ?? '';
+            String screentshotUrl = userData[x]['screentshotUrl'] ?? '';
 
             userModel.add(UserModel.editwithId(id, name, phone, email, photoUrl,
                 status, token, screentshotUrl));
 
             Future.delayed(const Duration(milliseconds: 200), () {});
-            priceData.clear();
-            if (userModel.isNotEmpty && x < userModel.length) {
-              getCurrentUserPrice(userModel[x].id!, "BTC/USD");
-            }
 
             print('call');
           }
@@ -721,54 +154,6 @@ class _AdminPanelState extends State<AdminPanel> {
           isLoading = false;
         }
       });
-    });
-  }
-
-  Future<void> getCurrentUserPrice(String uid, String pair) async {
-    _databaseReference
-        .child(uid)
-        .child('portfolio')
-        .onValue
-        .listen((DatabaseEvent event) {
-      var snapshot = event.snapshot;
-
-      //  priceData.clear();
-
-      setState(() {
-        for (var data in snapshot.children) {
-          if ((data.value as dynamic)["pairName"] == pair) {
-            priceData.add(data.value);
-            print((data.value as dynamic)["pairName"] as String);
-          } else {
-            print('No Data Available');
-          }
-        }
-        print(priceData);
-
-        isLoadingPrice = true;
-      });
-
-      // setState(() {
-      //   if (snapshot.exists && priceData.isNotEmpty) {
-      //     for (int index = 0; index < priceData.length; index++) {
-      //       if (priceData[index]['pairName'] == pair) {
-      //         String id = priceData[index]['id'].toString();
-      //         String pairName = priceData[index]['pairName'];
-      //         String price = priceData[index]['buyPrice'];
-      //         // print(pairName);
-      //         print(priceData[index]['pairName']);
-      //         priceModel.add(PriceModel.withId(
-      //           id,
-      //           pairName,
-      //           price,
-      //         ));
-      //         isLoadingPrice = true;
-      //       }
-      //     }
-      //   } else {
-      //     isLoadingPrice = false;
-      //   }
-      // });
     });
   }
 }

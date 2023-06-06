@@ -1,7 +1,9 @@
 import 'package:adaptive_navbar/adaptive_navbar.dart';
+import 'package:dr_crypto/screens/admin/admin_login.dart';
 import 'package:dr_crypto/screens/admin/admin_panel.dart';
 import 'package:dr_crypto/screens/admin/approved_requests.dart';
 import 'package:dr_crypto/screens/admin/new_requests.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
@@ -21,13 +23,27 @@ class _MyTabBarState extends State<MyTabBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length:3, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
+    user = _auth.currentUser;
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  //firebase
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? user;
+  gotoAdminDashboard() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AdminLogin(),
+      ),
+      (route) => false,
+    );
   }
 
   @override
@@ -57,28 +73,34 @@ class _MyTabBarState extends State<MyTabBar>
                 isAntiAlias: true,
                 fit: BoxFit.cover,
               ),
-        navBarItems: const <NavBarItem>[],
+        navBarItems: <NavBarItem>[
+          NavBarItem(
+            text: "Logout",
+            onTap: () {
+              if (user != null) {
+                _auth.signOut();
+                gotoAdminDashboard();
+              }
+            },
+          ),
+        ],
         bottom: TabBar(
           automaticIndicatorColorAdjustment: true,
           controller: _tabController,
           indicatorColor: Colors.white,
           indicatorSize: TabBarIndicatorSize.tab,
           indicatorWeight: 5.0,
-          tabs: [
+          tabs: const [
             Tab(text: 'New Approval Requests'),
             Tab(text: 'Portfolio'),
-             Tab(text: 'Approved Requests'),
+            Tab(text: 'Approved Requests'),
           ],
         ),
       ),
 
       body: TabBarView(
         controller: _tabController,
-        children: [
-          NewRequests(),
-          AdminPanel(),
-          ApprovedRequests()
-        ],
+        children: const [NewRequests(), AdminPanel(), ApprovedRequests()],
       ),
     );
   }

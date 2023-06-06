@@ -1,14 +1,9 @@
 import 'dart:async';
 
-import 'package:adaptive_navbar/adaptive_navbar.dart';
-import 'package:dio/dio.dart';
 import 'package:dr_crypto/constant.dart';
-import 'package:dr_crypto/models/price_model.dart';
 import 'package:dr_crypto/models/user_model.dart';
 import 'package:dr_crypto/screens/admin/full_page_image.dart';
 
-import 'package:dr_crypto/utils/responsive_layout.dart';
-import 'package:dr_crypto/widgets/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -16,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import 'package:intl/intl.dart' as intl;
 
 import '../../utils/storage.dart';
 
@@ -57,8 +51,8 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16),
-              child: userModel.length == 0
-                  ? Center(
+              child: userModel.isEmpty
+                  ? const Center(
                       child: Text('No New Requests'),
                     )
                   : DataTable2(
@@ -140,8 +134,8 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
                                       child: Visibility(
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              primary: Colors.red,
-                                              onSurface: Colors.red,
+                                              backgroundColor: Colors.red,
+                                              disabledForegroundColor: Colors.red.withOpacity(0.38), disabledBackgroundColor: Colors.red.withOpacity(0.12),
                                               textStyle: const TextStyle(
                                                 fontFamily: 'Poppins-Bold',
                                                 fontSize: 18,
@@ -224,14 +218,14 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
           for (int x = 0; x < userData.length; x++) {
             // if (userData[x]['status'] == 'pending') {
               String id = userData[x]['id'].toString();
-              String name = userData[x]['userName'];
-              String phone = userData[x]['phone'];
-              String email = userData[x]['email'];
+              String name = userData[x]['userName']??'';
+              String phone = userData[x]['phone']??'';
+              String email = userData[x]['email']??'';
               //String address = userData[x]['address'];
-              String photoUrl = userData[x]['photoUrl'];
-              String status = userData[x]['status'];
-              String token = userData[x]['token'];
-              String screentshotUrl = userData[x]['screentshotUrl'];
+              String photoUrl = userData[x]['photoUrl']??'';
+              String status = userData[x]['status']??'';
+              String token = userData[x]['token']??'';
+              String screentshotUrl = userData[x]['screentshotUrl']??'';
               userModel.add(UserModel.editwithId(id, name, phone, email,
                   photoUrl, status, token, screentshotUrl));
 

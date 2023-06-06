@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OverlaySupport.global(
       child: MaterialApp(
-        
         debugShowCheckedModeBanner: false,
         title: 'Dr Crypto',
         theme: ThemeData(
@@ -43,6 +42,7 @@ class MyApp extends StatelessWidget {
           '/terms_and_conditions': (context) => const TermsAndCondtions(),
           '/privacy_policy': (context) => const PrivacyPolicy(),
           '/admin': (context) => const AdminLogin(),
+          //  '/userEdit': (context) => const EditUserInfo(),
         },
       ),
     );
