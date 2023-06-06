@@ -60,19 +60,19 @@ class Dashboard extends StatelessWidget {
             NavBarItem(
               text: "Services",
               onTap: () {
-                double servicespositon = 1310.0;
+                double servicespositon = 1910.0;
                 scrollcontrol.position.jumpTo(servicespositon);
                 //Navigator.pushNamed(context, "routeName");
               },
             ),
-            NavBarItem(
-              text: "About",
-              onTap: () {
-                double servicespositon = 1910.0;
-                scrollcontrol.position.jumpTo(servicespositon);
-                // Navigator.pushNamed(context, "routeName");
-              },
-            ),
+            // NavBarItem(
+            //   text: "About",
+            //   onTap: () {
+            //     double servicespositon = 1910.0;
+            //     scrollcontrol.position.jumpTo(servicespositon);
+            //     // Navigator.pushNamed(context, "routeName");
+            //   },
+            // ),
             NavBarItem(
               text: "Try App",
               onTap: () {

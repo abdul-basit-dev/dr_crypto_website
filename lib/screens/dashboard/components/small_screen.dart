@@ -129,17 +129,55 @@ class SmallChild extends StatelessWidget {
               ],
             ),
           ),
+  Container(
+            height: 600,
+            color: kPrimaryColor,
+            child: Center(
+              child: SizedBox(
+                width: 800,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 45, vertical: 38),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: const TextSpan(
+                        text: 'Technology ',
+                        style: TextStyle(
+                          color: kSecondColor,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                'isnt about the latest gadgets or apps. Its about what these things do for people. Its about bringing people together and',
+                            style: TextStyle(color: kSecondColor, fontSize: 20),
+                          ),
+                          TextSpan(
+                            text: ' making lives better',
+                            style: TextStyle(
+                                color: kSecondColor,
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
           // // our services section..
           Container(
             color: kSecondColor,
             height: 600,
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
+            child: const Padding(
+              padding: EdgeInsets.all(18.0),
               child: Column(
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(18.0),
+                      padding: EdgeInsets.all(18.0),
                       child: HeadingWidget(
                         textHeading: 'Our Services',
                         color: kPrimaryColor,
@@ -182,49 +220,13 @@ class SmallChild extends StatelessWidget {
 
           //end of our services..
 
-          Container(
-            height: 600,
-            color: kPrimaryColor,
-            child: Center(
-              child: SizedBox(
-                width: 800,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 45, vertical: 38),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: const TextSpan(
-                        text: 'Technology ',
-                        style: TextStyle(
-                          color: kSecondColor,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                'isnt about the latest gadgets or apps. Its about what these things do for people. Its about bringing people together and',
-                            style: TextStyle(color: kSecondColor, fontSize: 20),
-                          ),
-                          TextSpan(
-                            text: ' making lives better',
-                            style: TextStyle(
-                                color: kSecondColor,
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-            ),
-          ),
+        
 
           // app download conatainer
           Container(
             height: 600,
             width: double.infinity,
-            color: kSecondColor,
+            color: kPrimaryColor,
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -246,7 +248,7 @@ class SmallChild extends StatelessWidget {
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                             fontFamily: "Montserrat-Regular",
-                            color: kPrimaryColor,
+                            color: kSecondColor,
                           ),
                         ),
                       ),
@@ -278,13 +280,13 @@ class SmallChild extends StatelessWidget {
                               height: 30,
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: kPrimaryColor,
+                              backgroundColor: kSecondColor,
                               shape: const StadiumBorder(),
                               elevation: 2,
                             ),
                             label: const Text("Play Store",
                                 style: TextStyle(
-                                    color: kSecondColor,
+                                    color: kPrimaryColor,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold)),
                           ),
@@ -303,14 +305,14 @@ class SmallChild extends StatelessWidget {
                               height: 30,
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: kPrimaryColor,
+                              backgroundColor: kSecondColor,
                               shape: const StadiumBorder(),
                               elevation: 2,
                             ),
                             label: const Text(
                               "App Store",
                               style: TextStyle(
-                                  color: kSecondColor,
+                                  color: kPrimaryColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             ),

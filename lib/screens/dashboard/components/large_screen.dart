@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../widgets/card_widget.dart';
 import '../../../widgets/heading_widget.dart';
 
-
 class LargeChild extends StatelessWidget {
   const LargeChild({super.key});
 
@@ -66,10 +65,8 @@ class LargeChild extends StatelessWidget {
               ),
             ],
           ),
-
-         
         ),
-       
+
         Container(
           height: 700,
           color: kSecondColor,
@@ -135,6 +132,46 @@ class LargeChild extends StatelessWidget {
           height: 10,
         ),
         //third page...
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Container(
+            height: 600,
+            color: kPrimaryColor,
+            child: Center(
+              child: SizedBox(
+                width: 800,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 45, vertical: 38),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: const TextSpan(
+                        text: 'Technology ',
+                        style: TextStyle(
+                          color: kSecondColor,
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                'isnt about the latest\ngadgets or apps. Its about what these things do for people. Its about bringing people together and\n',
+                            style: TextStyle(color: kSecondColor, fontSize: 28),
+                          ),
+                          TextSpan(
+                            text: ' making lives better',
+                            style: TextStyle(
+                                color: kSecondColor,
+                                fontSize: 38,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         //Our services..
         Container(
           height: 600,
@@ -183,50 +220,10 @@ class LargeChild extends StatelessWidget {
           ),
         ),
 
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Container(
-            height: 600,
-            color: kPrimaryColor,
-            child: Center(
-              child: SizedBox(
-                width: 800,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 45, vertical: 38),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: const TextSpan(
-                        text: 'Technology ',
-                        style: TextStyle(
-                          color: kSecondColor,
-                          fontSize: 38,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                'isnt about the latest\ngadgets or apps. Its about what these things do for people. Its about bringing people together and\n',
-                            style: TextStyle(color: kSecondColor, fontSize: 28),
-                          ),
-                          TextSpan(
-                            text: ' making lives better',
-                            style: TextStyle(
-                                color: kSecondColor,
-                                fontSize: 38,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
         // app download conatainer
         Container(
           height: 600,
-          color: kSecondColor,
+          color: kPrimaryColor,
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -246,7 +243,7 @@ class LargeChild extends StatelessWidget {
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Montserrat-Regular",
-                        color: kPrimaryColor,
+                        color: kSecondColor,
                       ),
                     ),
                     const SizedBox(
@@ -256,7 +253,7 @@ class LargeChild extends StatelessWidget {
                       " Apps will become even more tailored to individual\n users, with algorithms and machine learning being used\n to create customized experiences based on user \npreferences and behaviors.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Montserrat-Regular",
                         color: Colors.black,
@@ -277,19 +274,18 @@ class LargeChild extends StatelessWidget {
                             height: 30,
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: kPrimaryColor,
+                            backgroundColor: kSecondColor,
                             shape: const StadiumBorder(),
                             elevation: 2,
                           ),
                           label: const Text("Play Store",
                               style: TextStyle(
-                                  color: kSecondColor,
+                                  color: kPrimaryColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -302,21 +298,20 @@ class LargeChild extends StatelessWidget {
                             height: 30,
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: kPrimaryColor,
+                            backgroundColor: kSecondColor,
                             shape: const StadiumBorder(),
                             elevation: 2,
                           ),
                           label: const Text(
                             "App Store",
                             style: TextStyle(
-                                color: kSecondColor,
+                                color: kPrimaryColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
                     ),
-                   
                   ],
                 ),
               ),
@@ -398,7 +393,6 @@ class LargeChild extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
                     HeadingWidget(
                       textHeading: 'Email Address',
                       color: kPrimaryColor,
