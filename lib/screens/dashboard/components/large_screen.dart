@@ -256,7 +256,7 @@ class LargeChild extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Montserrat-Regular",
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(
