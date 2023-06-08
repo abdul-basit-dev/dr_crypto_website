@@ -802,7 +802,9 @@ class _EditUserInfoState extends State<EditUserInfo> {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundImage: NetworkImage(widget.userImage),
+          backgroundImage: NetworkImage(widget.userImage == 'empty'
+              ? 'https://firebasestorage.googleapis.com/v0/b/drcrypto-1d034.appspot.com/o/user_images%2FBlack%20Minimalist%20Initial%20Font%20BE%20Logo.png?alt=media&token=a52a437f-8c22-4c89-87e9-6cdd04e102e1'
+              : widget.userImage),
         ),
         const SizedBox(height: 10),
         Text(

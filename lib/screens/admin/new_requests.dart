@@ -96,7 +96,7 @@ class _NewRequestsState extends State<NewRequests> {
                             //email
                             DataCell(Text(userModel[index].email)),
                             //payment status
-                            DataCell(userModel[index].status != 'true'
+                            DataCell(userModel[index].status != 'paymentAccepted'
                                 ? const Text(
                                     'Pending',
                                     style: TextStyle(
@@ -154,7 +154,7 @@ class _NewRequestsState extends State<NewRequests> {
                                               minimumSize: Size.infinite,
                                               maximumSize: Size.infinite),
                                           onPressed: () {
-                                            userModel[index].status == 'false'
+                                            userModel[index].status == 'paymentRejected'
                                                 ? updateStatus(
                                                     userModel[index].id!,
                                                     'false',
@@ -162,7 +162,7 @@ class _NewRequestsState extends State<NewRequests> {
                                                 : () {};
                                           },
                                           child: Text(
-                                              userModel[index].status == 'false'
+                                              userModel[index].status == 'paymentRejected'
                                                   ? 'Rejected'
                                                   : 'Reject'),
                                         ),
@@ -193,15 +193,15 @@ class _NewRequestsState extends State<NewRequests> {
                                               minimumSize: Size.infinite,
                                               maximumSize: Size.infinite),
                                           onPressed: () {
-                                            userModel[index].status != 'true'
+                                            userModel[index].status != 'paymentAccepted'
                                                 ? updateStatus(
                                                     userModel[index].id!,
-                                                    'true',
+                                                    'paymentAccepted',
                                                     "Account Approved")
                                                 : () {};
                                           },
                                           child: Text(
-                                              userModel[index].status != 'true'
+                                              userModel[index].status != 'paymentAccepted'
                                                   ? 'Approve'
                                                   : 'Approved'),
                                         ),
@@ -259,7 +259,7 @@ class _NewRequestsState extends State<NewRequests> {
       setState(() {
         if (snapshot.exists && userData.isNotEmpty) {
           for (int x = 0; x < userData.length; x++) {
-            if (userData[x]['status'] == 'pending') {
+            if (userData[x]['status'] == 'paymentPaid') {
               String id = userData[x]['id'].toString();
               String name = userData[x]['userName'];
               String phone = userData[x]['phone'];
@@ -268,7 +268,7 @@ class _NewRequestsState extends State<NewRequests> {
               String photoUrl = userData[x]['photoUrl'];
               String status = userData[x]['status'];
               String token = userData[x]['token'];
-              String screentshotUrl = userData[x]['screentshotUrl'];
+              String screentshotUrl = userData[x]['screentshotUrl']??'';
               userModel.add(UserModel.editwithId(id, name, phone, email,
                   photoUrl, status, token, screentshotUrl));
 
@@ -287,6 +287,7 @@ class _NewRequestsState extends State<NewRequests> {
           });
         }
       });
+  
     });
   }
 }

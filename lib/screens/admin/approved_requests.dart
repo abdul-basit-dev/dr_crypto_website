@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-
 import '../../utils/storage.dart';
 
 class ApprovedRequests extends StatefulWidget {
@@ -82,10 +81,10 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
                           size: ColumnSize.M,
                           label: Text('Payment Image'),
                         ),
-                        DataColumn2(
-                          size: ColumnSize.L,
-                          label: Text('Action'),
-                        ),
+                        // DataColumn2(
+                        //   size: ColumnSize.L,
+                        //   label: Text('Action'),
+                        // ),
                       ],
                       rows: List<DataRow>.generate(
                         userModel.length,
@@ -96,19 +95,21 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
                             //email
                             DataCell(Text(userModel[index].email)),
                             //payment status
-                            DataCell(userModel[index].status != 'true'
-                                ? const Text(
-                                    'Pending',
-                                    style: TextStyle(
-                                      color: Colors.amber,
-                                    ),
-                                  )
-                                : const Text(
-                                    'Approved',
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                    ),
-                                  )),
+                            DataCell(
+                                userModel[index].status == 'paymentAccepted' ||
+                                        userData[index]['status'] == 'Booked'
+                                    ? const Text(
+                                        'Approved',
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                        ),
+                                      )
+                                    : const Text(
+                                        'Pending',
+                                        style: TextStyle(
+                                          color: Colors.amber,
+                                        ),
+                                      )),
                             DataCell(InkWell(
                                 onTap: () {
                                   print('Clicked');
@@ -124,50 +125,61 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
                                 child: Image.network(
                                     userModel[index].screentshotUrl))),
                             //Edit
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Expanded(
-                                      child: Visibility(
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.red,
-                                              disabledForegroundColor: Colors.red.withOpacity(0.38), disabledBackgroundColor: Colors.red.withOpacity(0.12),
-                                              textStyle: const TextStyle(
-                                                fontFamily: 'Poppins-Bold',
-                                                fontSize: 18,
-                                                color: Color(0xffffffff),
-                                                height: 1.2,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              side: const BorderSide(
-                                                  color: Colors.red),
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  8.0))),
-                                              minimumSize: Size.infinite,
-                                              maximumSize: Size.infinite),
-                                          onPressed: () {},
-                                          child: Text(
-                                              userModel[index].status == 'false'
-                                                  ? 'Rejected'
-                                                  : userModel[index].status ==
-                                                          'true'
-                                                      ? 'Approved'
-                                                      : 'NA'),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // DataCell(
+                            //   Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Row(
+                            //       mainAxisSize: MainAxisSize.min,
+                            //       children: [
+                            //         Expanded(
+                            //           child: Visibility(
+                            //             child: ElevatedButton(
+                            //               style: ElevatedButton.styleFrom(
+                            //                   backgroundColor: Colors.red,
+                            //                   disabledForegroundColor: Colors
+                            //                       .red
+                            //                       .withOpacity(0.38),
+                            //                   disabledBackgroundColor:
+                            //                       Colors.red.withOpacity(0.12),
+                            //                   textStyle: const TextStyle(
+                            //                     fontFamily: 'Poppins-Bold',
+                            //                     fontSize: 18,
+                            //                     color: Color(0xffffffff),
+                            //                     height: 1.2,
+                            //                     fontWeight: FontWeight.bold,
+                            //                   ),
+                            //                   side:
+                            //                       const BorderSide(
+                            //                           color: Colors.red),
+                            //                   shape:
+                            //                       const RoundedRectangleBorder(
+                            //                           borderRadius:
+                            //                               BorderRadius.all(
+                            //                                   Radius.circular(
+                            //                                       8.0))),
+                            //                   minimumSize: Size.infinite,
+                            //                   maximumSize: Size.infinite),
+                            //               onPressed: () {},
+                            //               child: Text(userModel[index].status ==
+                            //                           'paymentRejected' ||
+                            //                       userData[index]['status'] ==
+                            //                           'Booked'
+                            //                   ? 'Rejected'
+                            //                   : userModel[index].status ==
+                            //                               'paymentAccepted' ||
+                            //                           userData[index]
+                            //                                   ['status'] ==
+                            //                               'Booked'
+                            //                       ? 'Approved'
+                            //                       : 'NA'),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                         
                           ],
                         ),
                       ),
@@ -216,25 +228,26 @@ class _ApprovedRequestsState extends State<ApprovedRequests> {
       setState(() {
         if (snapshot.exists && userData.isNotEmpty) {
           for (int x = 0; x < userData.length; x++) {
-            // if (userData[x]['status'] == 'pending') {
+            if (userData[x]['status'] == 'paymentAccepted' ||
+                userData[x]['status'] == 'Booked') {
               String id = userData[x]['id'].toString();
-              String name = userData[x]['userName']??'';
-              String phone = userData[x]['phone']??'';
-              String email = userData[x]['email']??'';
+              String name = userData[x]['userName'] ?? '';
+              String phone = userData[x]['phone'] ?? '';
+              String email = userData[x]['email'] ?? '';
               //String address = userData[x]['address'];
-              String photoUrl = userData[x]['photoUrl']??'';
-              String status = userData[x]['status']??'';
-              String token = userData[x]['token']??'';
-              String screentshotUrl = userData[x]['screentshotUrl']??'';
+              String photoUrl = userData[x]['photoUrl'] ?? '';
+              String status = userData[x]['status'] ?? '';
+              String token = userData[x]['token'] ?? '';
+              String screentshotUrl = userData[x]['screentshotUrl'] ?? '';
               userModel.add(UserModel.editwithId(id, name, phone, email,
                   photoUrl, status, token, screentshotUrl));
 
               Future.delayed(const Duration(milliseconds: 200), () {});
 
               print('call');
-            // } else {
-            //   print('No Request');
-            // }
+            } else {
+              print('No Request');
+            }
           }
 
           isLoading = false;
